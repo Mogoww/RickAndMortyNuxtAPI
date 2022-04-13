@@ -1,9 +1,19 @@
+
+
 <template>
-  <Home/>
+  <div>
+
+        <n-link to="/character">person</n-link>
+
+  </div>
 </template>
 
+<style>
+</style>
+
 <script>
+import axios from "axios";
 export default {
-  name: 'IndexPage'
-}
+  name: "IndexPage",
+};
 </script>
