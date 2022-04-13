@@ -1,11 +1,12 @@
 <template>
   <div>
-      HOME
+    <div v-for="item in characters" :key="item.id">
+      <Character :character="item" />
+    </div>
   </div>
 </template>
 
 <style>
-
 </style>
 
 <script>
@@ -13,13 +14,13 @@ import axios from "axios";
 export default {
   data() {
     return {
-      character: [],
+      characters: [],
     };
   },
   created: async function () {
     let datas = await axios.get("https://rickandmortyapi.com/api/character");
-    console.log(datas.data.results);
-    this.character = datas.data;
+    console.log(datas.data.results[0]);
+    this.characters = datas.data.results;
   },
 };
 </script>

@@ -1,13 +1,15 @@
 <template>
   <div>
-      HOME
+    <img :src="character.image" />
+    {{ character.name }}
   </div>
 </template>
 
 <style>
-
 </style>
 
 <script>
-
+export default {
+  props: ["character"],
+};
 </script>
