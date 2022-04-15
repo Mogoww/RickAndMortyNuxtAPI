@@ -4,6 +4,8 @@
   <div>
 
         <n-link to="/character">person</n-link>
+        <!-- <n-link to="/character">person</n-link> -->
+
 
   </div>
 </template>

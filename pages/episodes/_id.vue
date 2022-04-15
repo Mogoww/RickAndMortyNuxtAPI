@@ -1,11 +1,12 @@
 <template>
   <div>
-    <Person :character="character" />
+    sdfsdfs
+    {{ episode }}
 
-    <div class="container-episode">
-      <div class="episode" v-for="item in character.episode" :key="item.id">
-        <n-link :to="'/episodes/' + substr(item)">
-          <Episode :episode="item" />
+    <div class="container-character">
+      <div v-for="item in episode.characters" :key="item.id">
+        <n-link :to="'/character/person/' + substr(item)">
+          <Characters :idCharacter="substr(item)" />
         </n-link>
       </div>
     </div>
@@ -17,20 +18,19 @@ import axios from "axios";
 export default {
   data() {
     return {
-      character: [],
+      episode: [],
     };
   },
   created: async function () {
     let id = this.$route.params.id;
     let datas = await axios.get(
-      "https://rickandmortyapi.com/api/character/" + id
+      "https://rickandmortyapi.com/api/episode/" + id
     );
-    this.character = datas.data;
+    this.episode = datas.data;
   },
   methods: {
     substr: function (data) {
       return data.substring(data.lastIndexOf("/") + 1);
-      // this.substr = this.str.substr(1, 4);
     },
   },
 };
@@ -38,12 +38,11 @@ export default {
 
 <style  lang='scss' scoped>
 @import "~/assets/scss/variables";
-.container-episode {
+.container-character {
   display: flex;
   flex-wrap: wrap;
-  .episode {
+  .card {
     padding: 10px;
-    border: solid;
   }
 }
 </style>

@@ -1,23 +1,18 @@
 
 
 <template>
-  <div>
-    <div v-for="item in characters" :key="item.id">
-      <n-link :to="'character/person/'+item.id"
-        >
-        <Character :character="item" />
+  <div class="container-character">
+    <div class="card" v-for="item in characters" :key="item.id">
+      <n-link :to="'character/person/' + item.id">
+        <Characters :idCharacter="item.id" />
       </n-link>
     </div>
   </div>
 </template>
 
-<style>
-</style>
-
 <script>
 import axios from "axios";
 export default {
-
   data() {
     return {
       characters: [],
@@ -25,8 +20,18 @@ export default {
   },
   created: async function () {
     let datas = await axios.get("https://rickandmortyapi.com/api/character");
-    console.log(datas.data.results[0]);
     this.characters = datas.data.results;
   },
 };
 </script>
+
+<style  lang='scss' scoped>
+@import "~/assets/scss/variables";
+.container-character {
+  display: flex;
+  flex-wrap: wrap;
+  .card {
+    padding: 10px;
+  }
+}
+</style>
