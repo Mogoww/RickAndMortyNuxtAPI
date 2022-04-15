@@ -29,7 +29,7 @@ export default {
   },
   created: async function () {
     let datas = await axios.get("https://rickandmortyapi.com/api/character/"+this.idCharacter);
-    console.log(datas.data);
+    // console.log(datas.data);
     this.character = datas.data;
   },
 };

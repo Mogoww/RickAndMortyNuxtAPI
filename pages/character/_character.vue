@@ -7,6 +7,7 @@
         <Characters :idCharacter="item.id" />
       </n-link>
     </div>
+    
   </div>
 </template>
 
@@ -21,6 +22,7 @@ export default {
   created: async function () {
     let datas = await axios.get("https://rickandmortyapi.com/api/character");
     this.characters = datas.data.results;
+    console.log(datas.data.info.next);
   },
 };
 </script>
