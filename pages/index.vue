@@ -4,7 +4,7 @@
   <div>
 
         <n-link to="/character">person</n-link>
-        <!-- <n-link to="/character">person</n-link> -->
+        <n-link to="/episodes">episodes</n-link>
 
 
   </div>

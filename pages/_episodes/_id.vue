@@ -1,7 +1,6 @@
 <template>
   <div>
-    sdfsdfs
-    {{ episode }}
+    <!-- {{ episode }}
 
     <div class="container-character">
       <div v-for="item in episode.characters" :key="item.id">
@@ -9,7 +8,8 @@
           <Characters :idCharacter="substr(item)" />
         </n-link>
       </div>
-    </div>
+    </div> -->
+    sdfsdf
   </div>
 </template>
 
