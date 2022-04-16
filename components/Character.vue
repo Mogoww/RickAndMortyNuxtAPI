@@ -5,7 +5,7 @@
     <!-- {{ character }} -->
 
     <!-- {{character.origin.name}} -->
-
+details person
     <!-- {{character.origin.url}} -->
   </div>
 </template>
@@ -38,4 +38,7 @@ export default {
 
 <style lang='scss' scoped>
 @import "~/assets/scss/variables";
+
+
+
 </style>

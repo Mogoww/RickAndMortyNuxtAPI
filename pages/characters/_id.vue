@@ -4,7 +4,7 @@
       <div class="container-character">
         <div class="card" v-for="item in characters" :key="item.id">
           <n-link :to="'/characters/' + item.id">
-            <Characters :idCharacter="item.id" />
+            <CardCharacter :idCharacter="item.id" />
           </n-link>
         </div>
       </div>
@@ -12,14 +12,14 @@
 
     <div v-if="character">
       <!-- {{char}} -->
-      <Person :idCharacter="character.id" />
+      <Character :idCharacter="character.id" />
       <div class="episode" v-for="item in character.episode" :key="item.id">
         <n-link :to="'/episodes/' + substr(item)">
           <Episode :episode="item" />
         </n-link>
       </div>
       <!--     
-    <Person :character="character" />
+    <Character :character="character" />
 
     <div class="container-episode">
       <div class="episode" v-for="item in character.episode" :key="item.id">
