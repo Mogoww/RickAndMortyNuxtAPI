@@ -1,13 +1,23 @@
 <template>
   <div>
     <!-- {{episodes}} -->
-    <div v-for="item in episodes" :key="item.id">
-      <!-- <n-link :to="'/episodes/' + substr(item.url)"> -->
-        {{ item.name }}
-        {{ item.episode }}
-        <!-- {{item.url}} -->
-        <!-- <Characters :idCharacter="substr(item)" /> -->
-      <!-- </n-link> -->
+    <div v-if="episodes">
+      <div v-for="item in episodes" :key="item.id">
+        <n-link :to="'/episodes/' + substr(item.url)">
+          {{ item.name }}
+          {{ item.episode }}
+          <!-- {{item.url}} -->
+          <!-- <Characters :idCharacter="substr(item.url)" /> -->
+        </n-link>
+      </div>
+    </div>
+
+    <div v-if="episode">
+      {{ episode.name }}
+      {{ episode.episode }}
+      <div v-for="item in episode.characters" :key="item.id">
+        <Person :idCharacter="substr(item)" />
+      </div>
     </div>
   </div>
 </template>
@@ -17,7 +27,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-      episodes: [],
+      episodes: null,
+      episode: null,
     };
   },
   created: async function () {
@@ -28,13 +39,8 @@ export default {
       this.episodes = datas.data.results;
     } else {
       datas = await axios.get("https://rickandmortyapi.com/api/episode/" + id);
-      this.episodes = datas.data;
-    console.log(this.episodes);
-
+      this.episode = datas.data;
     }
-    // if(datas.data)
-    // console.log(this.created);
-    // console.log(datas.data.info.next);
   },
   methods: {
     substr: function (data) {
