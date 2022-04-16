@@ -16,7 +16,9 @@
       {{ episode.name }}
       {{ episode.episode }}
       <div v-for="item in episode.characters" :key="item.id">
-        <Person :idCharacter="substr(item)" />
+        <n-link :to="'/characters/' + substr(item)">
+          <Person :idCharacter="substr(item)" />
+        </n-link>
       </div>
     </div>
   </div>
@@ -34,13 +36,15 @@ export default {
   created: async function () {
     let id = this.$route.params.id;
     let datas;
-    if (id == null) {
-      datas = await axios.get("https://rickandmortyapi.com/api/episode");
-      this.episodes = datas.data.results;
-    } else {
+    if (id) {
       datas = await axios.get("https://rickandmortyapi.com/api/episode/" + id);
       this.episode = datas.data;
+    } else {
+      datas = await axios.get("https://rickandmortyapi.com/api/episode");
+      this.episodes = datas.data.results;
     }
+
+    console.log("xnbvjv jxhbvgb");
   },
   methods: {
     substr: function (data) {

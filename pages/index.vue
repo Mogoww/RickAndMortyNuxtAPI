@@ -3,7 +3,7 @@
 <template>
   <div>
 
-        <n-link to="/character">person</n-link>
+        <n-link to="/characters">person</n-link>
         <n-link to="/episodes">episodes</n-link>
 
 
