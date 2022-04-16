@@ -1,11 +1,26 @@
 <template>
   <div>
-    <img :src="character.image" :alt="character.name" style="width: 50%" />
-    {{ character.name }}
+    <div >
+      <div class="character-img">
+        <img :src="character.image" :alt="character.name" style="width: 50%" />
+      </div>
+    </div>
+   name: {{ character.name }} <br>
     <!-- {{ character }} -->
+    status: {{character.status}} <br>
+    species: {{character.species}} <br>
+    type: {{character.type}} <br>
+    gender: {{character.gender}} <br>
+    status: {{character.status}} <br>
+
+<div>
+  <h1>origin</h1>
+  <!-- name: {{character.origin.name}} -->
+</div>
+
+ <!-- "origin": { "name": "unknown", "url": "" }, "location": { "name": "Earth (Replacement Dimension)", "url": "https://rickandmortyapi.com/api/location/20" }, "image": "https://rickandmortyapi.com/api/character/avatar/13.jpeg", "episode": [ "https://rickandmortyapi.com/api/episode/31" ], "url": "https://rickandmortyapi.com/api/character/13", "created": "2017-11-04T20:33:30.779Z" } -->
 
     <!-- {{character.origin.name}} -->
-details person
     <!-- {{character.origin.url}} -->
   </div>
 </template>
@@ -38,7 +53,9 @@ export default {
 
 <style lang='scss' scoped>
 @import "~/assets/scss/variables";
-
-
-
+.character-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>

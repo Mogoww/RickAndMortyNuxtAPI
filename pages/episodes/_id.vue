@@ -15,13 +15,15 @@
     <div v-if="episode">
       {{ episode.name }}
       {{ episode.episode }}
-
-      <div v-for="item in episode.characters" :key="item.id">
-        <n-link :to="'/characters/' + substr(item)">
-          <CardCharacter :idCharacter="substr(item)" />
-        </n-link>
-      </div>
       
+      <div style="display:flex; flex-wrap: wrap;">
+        <!-- <div> -->
+        <div v-for="item in episode.characters" :key="item.id">
+          <n-link :to="'/characters/' + substr(item)">
+            <CardCharacter :idCharacter="substr(item)" />
+          </n-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>

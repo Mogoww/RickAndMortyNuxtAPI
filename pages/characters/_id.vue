@@ -18,16 +18,7 @@
           <Episode :episode="item" />
         </n-link>
       </div>
-      <!--     
-    <Character :character="character" />
-
-    <div class="container-episode">
-      <div class="episode" v-for="item in character.episode" :key="item.id">
-        <n-link :to="'/episodes/' + substr(item)">
-          <Episode :episode="item" />
-        </n-link>
-      </div>
-    </div> -->
+    
     </div>
   </div>
 </template>
