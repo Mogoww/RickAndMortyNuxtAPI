@@ -8,7 +8,6 @@
               <CardCharacter :idCharacter="substr(item)" />
             </n-link>
           </div>
-          <!-- <div v-else-if="type == 'chadddracters'"></div> -->
         </div>
       </div>
     </VueSlickCarousel>
@@ -70,3 +69,11 @@ export default {
   },
 };
 </script> 
+
+// Style carousel
+<style>
+button.slick-prev:before,
+button.slick-next:before {
+  color: black !important;
+}
+</style>

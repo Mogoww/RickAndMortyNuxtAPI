@@ -31,7 +31,6 @@ export default {
     let datas = await axios.get(
       "https://rickandmortyapi.com/api/character/" + this.idCharacter
     );
-    console.log(datas.data);
     this.character = datas.data;
   },
 };
