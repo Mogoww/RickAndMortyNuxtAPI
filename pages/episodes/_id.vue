@@ -12,19 +12,24 @@
       </div>
     </div>
 
-    <div v-if="episode">
+    <!-- <div v-if="episode">
       {{ episode.name }}
       {{ episode.episode }}
-      
-      <div style="display:flex; flex-wrap: wrap;">
-        <!-- <div> -->
+
+      <div style="display: flex; flex-wrap: wrap">
         <div v-for="item in episode.characters" :key="item.id">
           <n-link :to="'/characters/' + substr(item)">
             <CardCharacter :idCharacter="substr(item)" />
           </n-link>
         </div>
       </div>
-    </div>
+    </div> -->
+
+
+
+
+
+
   </div>
 </template>
 
@@ -47,8 +52,6 @@ export default {
       datas = await axios.get("https://rickandmortyapi.com/api/episode");
       this.episodes = datas.data.results;
     }
-
-    console.log("xnbvjv jxhbvgb");
   },
   methods: {
     substr: function (data) {
