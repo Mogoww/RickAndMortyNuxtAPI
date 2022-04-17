@@ -15,7 +15,7 @@
       <Character :idCharacter="character.id" />
       <div class="episode" v-for="item in character.episode" :key="item.id">
         <n-link :to="'/episodes/' + substr(item)">
-          <Episode :episode="item" />
+          <CardEpisode :episode="item" />
         </n-link>
       </div>
     

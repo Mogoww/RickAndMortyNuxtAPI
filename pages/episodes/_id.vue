@@ -12,9 +12,9 @@
 
     <!-- Juste un épisode -->
     <div v-if="episode" style="margin: 100px">
-      {{ episode.name }}
-      {{ episode.episode }}
-
+      <!-- {{ episode.name }}
+      {{ episode.episode }} -->
+      <Episode :episode="episode"/>
       <!-- Carousel des characters présent dans l'épisode -->
       <Carousel :data="episode.characters" :type="'characters'" />
     </div>

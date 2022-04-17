@@ -1,8 +1,8 @@
 <template>
   <div>
     {{episode.episode}}
-      components
-    {{episode.name}}
+      card components
+      {{episode}}
   </div>
 </template>
 
