@@ -11,12 +11,8 @@
     </div>
 
     <!-- Juste un épisode -->
-    <div v-if="episode" style="margin: 100px">
-      <!-- {{ episode.name }}
-      {{ episode.episode }} -->
-      <Episode :episode="episode"/>
-      <!-- Carousel des characters présent dans l'épisode -->
-      <Carousel :data="episode.characters" :type="'characters'" />
+    <div v-if="episodeId" style="margin: 100px">
+      <Episode :episodeId="episodeId" />
     </div>
   </div>
 </template>
@@ -28,15 +24,14 @@ export default {
   data() {
     return {
       episodes: null,
-      episode: null,
+      episodeId: null,
     };
   },
   created: async function () {
     let id = this.$route.params.id;
     let datas;
     if (id) {
-      datas = await axios.get("https://rickandmortyapi.com/api/episode/" + id);
-      this.episode = datas.data;
+      this.episodeId = id;
     } else {
       datas = await axios.get("https://rickandmortyapi.com/api/episode");
       this.episodes = datas.data.results;
@@ -51,12 +46,4 @@ export default {
 </script>
 
 <style  lang='scss' >
-.card-margin {
-  margin: 10px 30px 10px 30px;
-}
-
-button.slick-prev:before,
-button.slick-next:before {
-  color: black !important;
-}
 </style>

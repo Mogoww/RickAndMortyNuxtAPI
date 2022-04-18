@@ -1,27 +1,35 @@
 <template>
   <div>
-    <div >
+    <div>
       <div class="character-img">
         <img :src="character.image" :alt="character.name" style="width: 50%" />
       </div>
     </div>
-   name: {{ character.name }} <br>
+    name: {{ character.name }} <br />
     <!-- {{ character }} -->
-    status: {{character.status}} <br>
-    species: {{character.species}} <br>
-    type: {{character.type}} <br>
-    gender: {{character.gender}} <br>
-    status: {{character.status}} <br>
+    status: {{ character.status }} <br />
+    species: {{ character.species }} <br />
+    type: {{ character.type }} <br />
+    gender: {{ character.gender }} <br />
+    status: {{ character.status }} <br />
 
-<div>
-  <h1>origin</h1>
-  <!-- name: {{character.origin.name}} -->
-</div>
+    <div>
+      <h1>origin</h1>
+      <!-- name: {{character.origin.name}} -->
+    </div>
 
- <!-- "origin": { "name": "unknown", "url": "" }, "location": { "name": "Earth (Replacement Dimension)", "url": "https://rickandmortyapi.com/api/location/20" }, "image": "https://rickandmortyapi.com/api/character/avatar/13.jpeg", "episode": [ "https://rickandmortyapi.com/api/episode/31" ], "url": "https://rickandmortyapi.com/api/character/13", "created": "2017-11-04T20:33:30.779Z" } -->
+    <!-- "origin": { "name": "unknown", "url": "" }, "location": { "name": "Earth (Replacement Dimension)", "url": "https://rickandmortyapi.com/api/location/20" }, "image": "https://rickandmortyapi.com/api/character/avatar/13.jpeg", "episode": [ "https://rickandmortyapi.com/api/episode/31" ], "url": "https://rickandmortyapi.com/api/character/13", "created": "2017-11-04T20:33:30.779Z" } -->
 
     <!-- {{character.origin.name}} -->
     <!-- {{character.origin.url}} -->
+
+    <div>
+      <div class="episode" v-for="item in character.episode" :key="item.id">
+        <n-link :to="'/episodes/' + substr(item)">
+          <CardEpisode :episodeId="substr(item)" />
+        </n-link>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -45,7 +53,6 @@ export default {
   methods: {
     substr: function (data) {
       return data.substring(data.lastIndexOf("/") + 1);
-      // this.substr = this.str.substr(1, 4);
     },
   },
 };

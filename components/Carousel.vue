@@ -1,16 +1,18 @@
 <template>
   <div>
-    <VueSlickCarousel v-bind="settings">
-      <div v-for="item in data" :key="item.id">
-        <div class="card-margin">
-          <div v-if="type == 'characters'">
-            <n-link :to="'/characters/' + substr(item)">
-              <CardCharacter :idCharacter="substr(item)" />
-            </n-link>
+    <div v-if="data">
+      <VueSlickCarousel v-bind="settings">
+        <div v-for="item in data" :key="item.id">
+          <div class="card-margin">
+            <div v-if="type == 'characters'">
+              <n-link :to="'/characters/' + substr(item)">
+                <CardCharacter :idCharacter="substr(item)" />
+              </n-link>
+            </div>
           </div>
         </div>
-      </div>
-    </VueSlickCarousel>
+      </VueSlickCarousel>
+    </div>
   </div>
 </template>
  
@@ -18,6 +20,7 @@
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 import VueSlickCarousel from "vue-slick-carousel";
+import axios from "axios";
 
 export default {
   props: ["data", "type"],
@@ -27,7 +30,7 @@ export default {
     return {
       settings: {
         dots: true,
-        infinite: false,
+        infinite: true,
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 4,
@@ -54,6 +57,7 @@ export default {
           {
             breakpoint: 480,
             settings: {
+              dots: false,
               slidesToShow: 1,
               slidesToScroll: 1,
             },
@@ -71,7 +75,12 @@ export default {
 </script> 
 
 // Style carousel
-<style>
+<style  lang='scss' >
+.card-margin {
+  margin: 10px 30px 10px 30px;
+  display: flex;
+}
+
 button.slick-prev:before,
 button.slick-next:before {
   color: black !important;

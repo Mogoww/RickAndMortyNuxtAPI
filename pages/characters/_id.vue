@@ -10,15 +10,13 @@
       </div>
     </div>
 
-    <div v-if="character">
-      <!-- {{char}} -->
-      <Character :idCharacter="character.id" />
-      <div class="episode" v-for="item in character.episode" :key="item.id">
+    <div v-if="characterId">
+      <Character :idCharacter="characterId" />
+      <!-- <div class="episode" v-for="item in character.episode" :key="item.id">
         <n-link :to="'/episodes/' + substr(item)">
           <CardEpisode :episode="item" />
         </n-link>
-      </div>
-    
+      </div> -->
     </div>
   </div>
 </template>
@@ -30,6 +28,7 @@ export default {
     return {
       characters: null,
       character: null,
+      characterId:null
     };
   },
   created: async function () {
@@ -37,10 +36,11 @@ export default {
     let datas;
 
     if (id) {
-      datas = await axios.get(
-        "https://rickandmortyapi.com/api/character/" + id
-      );
-      this.character = datas.data;
+      // datas = await axios.get(
+      //   "https://rickandmortyapi.com/api/character/" + id
+      // );
+      // this.character = datas.data;
+      this.characterId = id
     } else {
       datas = await axios.get("https://rickandmortyapi.com/api/character");
       this.characters = datas.data.results;

@@ -1,8 +1,6 @@
 <template>
   <div>
-    {{episode.episode}}
-      card components
-      {{episode}}
+    {{ episode.episode }}
   </div>
 </template>
 
@@ -12,6 +10,17 @@
 <script>
 import axios from "axios";
 export default {
-  props: ["episode"],
+  props: ["episodeId"],
+  data() {
+    return {
+      episode: [],
+    };
+  },
+  created: async function () {
+    let datas = await axios.get(
+      "https://rickandmortyapi.com/api/episode/" + this.episodeId
+    );
+    this.episode = datas.data;
+  },
 };
 </script>

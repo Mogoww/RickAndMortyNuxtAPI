@@ -2,11 +2,9 @@
 
 <template>
   <div>
+    <!-- <Header /> -->
 
-        <n-link to="/characters">person</n-link>
-        <n-link to="/episodes">episodes</n-link>
-
-
+    <!-- <Header /> -->
   </div>
 </template>
 
