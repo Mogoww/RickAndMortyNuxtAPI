@@ -1,5 +1,9 @@
 <template>
   <div>
+    <!-- Loading  -->
+    <loading v-show="loadingStatus" />
+
+    <!-- list characters -->
     <div v-if="characters">
       <div class="container-character">
         <div class="card" v-for="item in characters" :key="item.id">
@@ -8,74 +12,72 @@
           </n-link>
         </div>
       </div>
+      <Pagination :pageNum="page" :pageMax="pageMax" />
     </div>
 
+    <!-- One character -->
     <div v-if="characterId">
       <Character :idCharacter="characterId" />
-      <!-- <div class="episode" v-for="item in character.episode" :key="item.id">
-        <n-link :to="'/episodes/' + substr(item)">
-          <CardEpisode :episode="item" />
-        </n-link>
-      </div> -->
-    </div>
-    <div v-if="error">
-      <NotFoundPage/>
     </div>
 
+    <!-- Aucun résultat -->
+    <div v-if="error">
+      <NotFoundPage />
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Loading from "~/components/Loading";
 export default {
+  components: {
+    Loading,
+  },
   data() {
     return {
       characters: null,
       characterId: null,
+      page: 1,
+      pageMax: null,
       error: false,
+      loadingStatus: true,
     };
   },
-  created: async function () {
+  created: async function (t) {
     let id = this.$route.params.id;
-    let datas;
     if (id) {
       this.characterId = id;
+      this.loadingStatus = false;
     } else {
-      let page = 1;
       if (this.$route.query.page) {
-        page = this.$route.query.page;
+        this.page = this.$route.query.page;
       }
 
       await axios
-        .get("https://rickandmortyapi.com/api/character/?page=" + page)
+        .get("https://rickandmortyapi.com/api/character/?page=" + this.page)
         .then((res) => {
           this.characters = res.data.results;
+          this.pageMax = res.data.info.pages;
+          this.loadingStatus = false;
         })
         .catch((error) => {
-          this.error = true
+          this.error = true;
+          this.loadingStatus = false;
         });
-      // if (datas) 
     }
   },
+
   methods: {
     substr: function (data) {
       return data.substring(data.lastIndexOf("/") + 1);
-      // this.substr = this.str.substr(1, 4);
     },
   },
 };
 </script>
 
-<style  lang='scss' scoped>
+<style lang="scss" scoped>
 @import "~/assets/scss/variables";
-.container-episode {
-  display: flex;
-  flex-wrap: wrap;
-  .episode {
-    padding: 10px;
-    border: solid;
-  }
-}
 .container-character {
   display: flex;
   flex-wrap: wrap;
