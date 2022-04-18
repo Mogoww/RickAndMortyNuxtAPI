@@ -18,6 +18,10 @@
         </n-link>
       </div> -->
     </div>
+    <div v-if="error">
+      <NotFoundPage/>
+    </div>
+
   </div>
 </template>
 
@@ -27,23 +31,30 @@ export default {
   data() {
     return {
       characters: null,
-      character: null,
-      characterId:null
+      characterId: null,
+      error: false,
     };
   },
   created: async function () {
     let id = this.$route.params.id;
     let datas;
-
     if (id) {
-      // datas = await axios.get(
-      //   "https://rickandmortyapi.com/api/character/" + id
-      // );
-      // this.character = datas.data;
-      this.characterId = id
+      this.characterId = id;
     } else {
-      datas = await axios.get("https://rickandmortyapi.com/api/character");
-      this.characters = datas.data.results;
+      let page = 1;
+      if (this.$route.query.page) {
+        page = this.$route.query.page;
+      }
+
+      await axios
+        .get("https://rickandmortyapi.com/api/character/?page=" + page)
+        .then((res) => {
+          this.characters = res.data.results;
+        })
+        .catch((error) => {
+          this.error = true
+        });
+      // if (datas) 
     }
   },
   methods: {
