@@ -1,5 +1,10 @@
 <template>
   <div>
+    <!-- Aucun résultat -->
+    <div v-if="error">
+      <NotFoundPage />
+    </div>
+
     <!-- {{location}} -->
     <!-- Carousel des characters présent dans la location -->
 
@@ -8,18 +13,12 @@
     >
       <Carousel class="px-10" :data="location.residents" :type="'characters'" />
     </div>
-
-    <!-- Aucun résultat -->
-    <div v-if="error">
-      <NotFoundPage />
-    </div>
   </div>
 </template>
 
 <script>
 import Carousel from "~/components/Carousel.vue";
 import NotFoundPage from "~/components/NotFoundPage.vue";
-
 
 import axios from "axios";
 export default {

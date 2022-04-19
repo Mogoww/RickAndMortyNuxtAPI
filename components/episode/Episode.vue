@@ -1,5 +1,10 @@
 <template>
   <div>
+    <!-- Aucun résultat -->
+    <div v-if="error">
+      <NotFoundPage />
+    </div>
+
     components
     {{ episode.name }}<br />
     {{ episode.air_date }}<br />
@@ -20,13 +25,18 @@ export default {
   data() {
     return {
       episode: [],
+      error: false,
     };
   },
   created: async function () {
-    let datas = await axios.get(
-      "https://rickandmortyapi.com/api/episode/" + this.episodeId
-    );
-    this.episode = datas.data;
+    await axios
+      .get("https://rickandmortyapi.com/api/episode/" + this.episodeId)
+      .then((res) => {
+        this.episode = res.data;
+      })
+      .catch((error) => {
+        this.error = true;
+      });
   },
 };
 </script>
