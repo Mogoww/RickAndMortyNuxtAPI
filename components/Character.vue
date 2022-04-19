@@ -72,7 +72,7 @@
                 </div>
               </div>
 
-              <div class="flex items-center mb-10">
+              <div v-if="character.type" class="flex items-center mb-10">
                 <div class=" inline-block w-20 mr-6 text-right font-bold text-gray-600">
                   type
                 </div>
