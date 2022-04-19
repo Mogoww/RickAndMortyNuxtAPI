@@ -209,55 +209,30 @@
         </div>
       </div>
 
-      <div>
-        <h1>origin</h1>
-        <div v-if="character.origin">
-          {{ character.origin }}
-          {{ character.origin["name"] }}
+      
+      <div :class="((character.origin && character.origin.url) && (character.location && character.location.url))?'md:grid-cols-2':''" class="grid grid-cols-1  place-items-center">
+        <div v-if="character.origin && character.origin.url">
+          <h1>origin</h1>
+          <div>
+            <n-link :to="'/locations/' + substr(character.origin.url)">
+              <CardLocation :locationId="substr(character.origin.url)" />
+            </n-link>
+          </div>
         </div>
-        <div v-if="character.origin">
-          {{ character.origin["url"] }}
+
+        <div v-if="character.location && character.location.url">
+          <h1>location</h1>
+          <div>
+            <n-link :to="'/locations/' + substr(character.location.url)">
+              <CardLocation :locationId="substr(character.location.url)" />
+            </n-link>
+          </div>
         </div>
       </div>
 
-      <!-- <div>name: {{ character.name }}</div>
-      <div>status: {{ character.status }}</div>
-      <div>species: {{ character.species }}</div>
-      <div>gender: {{ character.gender }}</div>
-      <div>type: {{ character.type }}</div>
-      <div>status: {{ character.status }}</div>
-
-      <div>
-        <h1>origin</h1>
-        <div v-if="character.origin">
-          {{ character.origin }}
-          {{ character.origin["name"] }}
-        </div>
-        <div v-if="character.origin">
-          {{ character.origin["url"] }}
-        </div>
-     {{character.origin["url"]}} -->
-      <!-- </div>
-
-      <div>
-        <h1>location</h1>
-        <div v-if="character.location">
-          {{ character.location }}
-          {{ character.location["name"] }}
-        </div>
-        <div v-if="character.origin">
-          {{ character.location["url"] }}
-        </div>
-        {{character.origin["url"]}} -->
-      <!--  </div> -->
-      <!-- "origin": { "name": "unknown", "url": "" }, "location": { "name": "Earth (Replacement Dimension)", "url": "https://rickandmortyapi.com/api/location/20" }-->
-
-      <!-- {{character.origin.name}} -->
-      <!-- {{character.origin.url}} -->
-
       <div class="flex flex-wrap">
         <div v-for="item in character.episode" :key="item.id">
-          <div class="episode text-white font-bold py-2 px-4 rounded">
+          <div class="">
             <n-link :to="'/episodes/' + substr(item)">
               <CardEpisode :episodeId="substr(item)" />
             </n-link>
@@ -272,11 +247,13 @@
 
 <script>
 import CardEpisode from "~/components/episode/CardEpisode.vue";
+import CardLocation from "~/components/location/CardLocation.vue";
 
 import axios from "axios";
 export default {
   components: {
     CardEpisode,
+    CardLocation,
   },
   props: ["idCharacter"],
   data() {
