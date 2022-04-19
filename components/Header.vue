@@ -63,6 +63,9 @@
           <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
             <n-link to="/episodes">Episodes</n-link>
           </li>
+          <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
+            <n-link to="/locations">Localisation</n-link>
+          </li>
         </ul>
       </nav>
     </div>
