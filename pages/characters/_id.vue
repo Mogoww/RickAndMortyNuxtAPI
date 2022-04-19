@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Loading  -->
-    <loading v-show="loadingStatus" />
+    <Loading v-show="loadingStatus" />
 
     <!-- list characters -->
     <div v-if="characters">
@@ -28,11 +28,14 @@
 </template>
 
 <script>
+import Character from "~/components/character/Character.vue";
+import CardCharacter from "~/components/character/CardCharacter.vue";
+import Loading from "~/components/Loading.vue";
+
 import axios from "axios";
-import Loading from "~/components/Loading";
 export default {
   components: {
-    Loading,
+    Loading, CardCharacter, Character
   },
   data() {
     return {
@@ -44,15 +47,12 @@ export default {
       loadingStatus: true,
     };
   },
-  created: async function (t) {
-    let id = this.$route.params.id;
-    if (id) {
-      this.characterId = id;
+  created: async function () {
+    if (this.$route.params.id) {
+      this.characterId = this.$route.params.id;
       this.loadingStatus = false;
     } else {
-      if (this.$route.query.page) {
-        this.page = this.$route.query.page;
-      }
+      if (this.$route.query.page) this.page = this.$route.query.page;
 
       await axios
         .get("https://rickandmortyapi.com/api/character/?page=" + this.page)

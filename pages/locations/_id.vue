@@ -43,15 +43,12 @@ export default {
     };
   },
   created: async function () {
-    let id = this.$route.params.id;
-
-    if (id) {
-      this.locationId = id;
+    if (this.$route.params.id) {
+      this.locationId = this.$route.params.id;
       this.loadingStatus = false;
     } else {
-      if (this.$route.query.page) {
-        this.page = this.$route.query.page;
-      }
+      if (this.$route.query.page) this.page = this.$route.query.page;
+
       await axios
         .get("https://rickandmortyapi.com/api/location/?page=" + this.page)
         .then((res) => {

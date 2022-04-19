@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex items-center justify-center w-screen h-screen">
+    <div class="flex items-center justify-center ">
       <div class="px-4 lg:py-12">
         <div class="lg:gap-4 lg:flex">
           <div

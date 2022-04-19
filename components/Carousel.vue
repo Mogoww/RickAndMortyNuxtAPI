@@ -20,12 +20,13 @@
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 import VueSlickCarousel from "vue-slick-carousel";
+import CardCharacter from "~/components/character/CardCharacter.vue";
 import axios from "axios";
 
 export default {
   props: ["data", "type"],
   name: "Carousel",
-  components: { VueSlickCarousel },
+  components: { VueSlickCarousel,CardCharacter },
   data() {
     return {
       settings: {

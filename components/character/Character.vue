@@ -17,67 +17,190 @@
           <div class="bg-white p-10 md:w-3/4 lg:w-1/2 mx-auto">
             <div>
               <div class="flex items-center mb-5">
-                <div class=" inline-block w-20 mr-6 text-right font-bold text-gray-600">
+                <div
+                  class="
+                    inline-block
+                    w-20
+                    mr-6
+                    text-right
+                    font-bold
+                    text-gray-600
+                  "
+                >
                   Nom
                 </div>
 
-                <div class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none" >
+                <div
+                  class="
+                    flex-1
+                    py-2
+                    border-b-2 border-gray-400
+                    focus:border-green-400
+                    text-gray-600
+                    placeholder-gray-400
+                    outline-none
+                  "
+                >
                   {{ character.name }}
                 </div>
               </div>
 
               <div class="flex items-center mb-10">
                 <div class="flex relative">
-                  <div class="relative inline-block w-20 mr-6 text-right font-bold text-gray-600">
-                    Status                  
+                  <div
+                    class="
+                      relative
+                      inline-block
+                      w-20
+                      mr-6
+                      text-right
+                      font-bold
+                      text-gray-600
+                    "
+                  >
+                    Status
                   </div>
                   <div v-if="character.status == 'Alive'">
-                    <div class="absolute right-4 shadow-sm bg-green-500 w-2 h-2 rounded-full"></div>
+                    <div
+                      class="
+                        absolute
+                        right-4
+                        shadow-sm
+                        bg-green-500
+                        w-2
+                        h-2
+                        rounded-full
+                      "
+                    ></div>
                   </div>
                   <div v-else-if="character.status == 'Dead'">
-                    <div class="absolute right-4 shadow-sm bg-red-600 w-2 h-2 rounded-full"></div>
+                    <div
+                      class="
+                        absolute
+                        right-4
+                        shadow-sm
+                        bg-red-600
+                        w-2
+                        h-2
+                        rounded-full
+                      "
+                    ></div>
                   </div>
                   <div v-else>
-                    <div class="absolute right-4 shadow-sm bg-gray-600 w-2 h-2 rounded-full"></div>
+                    <div
+                      class="
+                        absolute
+                        right-4
+                        shadow-sm
+                        bg-gray-600
+                        w-2
+                        h-2
+                        rounded-full
+                      "
+                    ></div>
                   </div>
-
                 </div>
-                <div class="flex-1 flex py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none" >
-                  <span v-if="character.status == 'unknown' ">
-                    Manquant                  
-                  </span>
+                <div
+                  class="
+                    flex-1 flex
+                    py-2
+                    border-b-2 border-gray-400
+                    focus:border-green-400
+                    text-gray-600
+                    placeholder-gray-400
+                    outline-none
+                  "
+                >
+                  <span v-if="character.status == 'unknown'"> Manquant </span>
                   <span v-else>
-                    {{ character.status }} 
+                    {{ character.status }}
                   </span>
                 </div>
               </div>
 
               <div class="flex items-center mb-10">
-                <div class=" inline-block w-20 mr-6 text-right font-bold text-gray-600">
+                <div
+                  class="
+                    inline-block
+                    w-20
+                    mr-6
+                    text-right
+                    font-bold
+                    text-gray-600
+                  "
+                >
                   species
                 </div>
 
-                <div class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none" >
+                <div
+                  class="
+                    flex-1
+                    py-2
+                    border-b-2 border-gray-400
+                    focus:border-green-400
+                    text-gray-600
+                    placeholder-gray-400
+                    outline-none
+                  "
+                >
                   {{ character.species }}
                 </div>
               </div>
 
               <div class="flex items-center mb-10">
-                <div class=" inline-block w-20 mr-6 text-right font-bold text-gray-600">
+                <div
+                  class="
+                    inline-block
+                    w-20
+                    mr-6
+                    text-right
+                    font-bold
+                    text-gray-600
+                  "
+                >
                   gender
                 </div>
 
-                <div class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none" >
+                <div
+                  class="
+                    flex-1
+                    py-2
+                    border-b-2 border-gray-400
+                    focus:border-green-400
+                    text-gray-600
+                    placeholder-gray-400
+                    outline-none
+                  "
+                >
                   {{ character.gender }}
                 </div>
               </div>
 
               <div v-if="character.type" class="flex items-center mb-10">
-                <div class=" inline-block w-20 mr-6 text-right font-bold text-gray-600">
+                <div
+                  class="
+                    inline-block
+                    w-20
+                    mr-6
+                    text-right
+                    font-bold
+                    text-gray-600
+                  "
+                >
                   type
                 </div>
 
-                <div class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none" >
+                <div
+                  class="
+                    flex-1
+                    py-2
+                    border-b-2 border-gray-400
+                    focus:border-green-400
+                    text-gray-600
+                    placeholder-gray-400
+                    outline-none
+                  "
+                >
                   {{ character.type }}
                 </div>
               </div>
@@ -96,7 +219,6 @@
           {{ character.origin["url"] }}
         </div>
       </div>
-    
 
       <!-- <div>name: {{ character.name }}</div>
       <div>status: {{ character.status }}</div>
@@ -149,8 +271,13 @@
 
 
 <script>
+import CardEpisode from "~/components/episode/CardEpisode.vue";
+
 import axios from "axios";
 export default {
+  components: {
+    CardEpisode,
+  },
   props: ["idCharacter"],
   data() {
     return {

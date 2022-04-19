@@ -1,5 +1,8 @@
 <template>
   <div>
+    <!-- Loading  -->
+    <loading v-show="loadingStatus" />
+
     <!-- List épisodes -->
     <div v-if="episodes">
       <div v-for="item in episodes" :key="item.id">
@@ -8,33 +11,55 @@
           {{ item.episode }}
         </n-link>
       </div>
+      <Pagination :pageNum="page" :pageMax="pageMax" />
     </div>
 
     <!-- Juste un épisode -->
     <div v-if="episodeId" style="margin: 100px">
       <Episode :episodeId="episodeId" />
     </div>
+
+    <!-- Aucun résultat -->
+    <div v-if="error">
+      <NotFoundPage />
+    </div>
   </div>
 </template>
 
 <script>
+import Episode from "~/components/episode/Episode.vue";
+// import CardEpisode from "~/components/episode/CardEpisode.vue";
 import axios from "axios";
 
 export default {
+  components: { Episode },
   data() {
     return {
       episodes: null,
       episodeId: null,
+      page: 1,
+      pageMax: null,
+      error: false,
+      loadingStatus: true,
     };
   },
   created: async function () {
-    let id = this.$route.params.id;
-    let datas;
-    if (id) {
-      this.episodeId = id;
+    if (this.$route.params.id) {
+      this.episodeId = this.$route.params.id;
+      this.loadingStatus = false;
     } else {
-      datas = await axios.get("https://rickandmortyapi.com/api/episode");
-      this.episodes = datas.data.results;
+      if (this.$route.query.page) this.page = this.$route.query.page;
+      await axios
+        .get("https://rickandmortyapi.com/api/episode/?page=" + this.page)
+        .then((res) => {
+          this.episodes = res.data.results;
+          this.pageMax = res.data.info.pages;
+          this.loadingStatus = false;
+        })
+        .catch((error) => {
+          this.error = true;
+          this.loadingStatus = false;
+        });
     }
   },
   methods: {
