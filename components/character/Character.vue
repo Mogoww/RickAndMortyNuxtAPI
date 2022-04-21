@@ -209,8 +209,17 @@
         </div>
       </div>
 
-      
-      <div :class="((character.origin && character.origin.url) && (character.location && character.location.url))?'md:grid-cols-2':''" class="grid grid-cols-1  place-items-center">
+      <div
+        :class="
+          character.origin &&
+          character.origin.url &&
+          character.location &&
+          character.location.url
+            ? 'md:grid-cols-2'
+            : ''
+        "
+        class="grid grid-cols-1 place-items-center"
+      >
         <div v-if="character.origin && character.origin.url">
           <h1>origin</h1>
           <div>
@@ -230,15 +239,37 @@
         </div>
       </div>
 
-      <div class="flex flex-wrap">
+      <div class="grid grid-cols-4 gap-4">
+        <div v-for="items in episodes" :key="items.id">
+          <div v-if="items.numEp.length > 0">
+            {{ items.saison }}
+            <div class="flex flex-wrap">
+              <div v-for="item in items.numEp" :key="item.id">
+                <n-link :to="'/episodes/' + item.num">
+                  <CardEpisode :episodeId="item.num" />
+                </n-link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="">
         <div v-for="item in character.episode" :key="item.id">
-          <div class="">
-            <n-link :to="'/episodes/' + substr(item)">
+          <div class="">-->
+      <!-- 1-11 S01
+            12-21 S02
+            22-31 S03
+            32-41 S04
+            42-51 S05 -->
+
+      <!-- flex flex-wrap -->
+
+      <!--  <n-link :to="'/episodes/' + substr(item)">
               <CardEpisode :episodeId="substr(item)" />
             </n-link>
           </div>
         </div>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
@@ -260,6 +291,7 @@ export default {
     return {
       character: [],
       error: false,
+      episodes: [],
     };
   },
   created: async function () {
@@ -267,6 +299,8 @@ export default {
       .get("https://rickandmortyapi.com/api/character/" + this.idCharacter)
       .then((res) => {
         this.character = res.data;
+        this.episodes = this.triEpisode(this.character.episode);
+        console.log(this.episodes);
       })
       .catch((error) => {
         this.error = true;
@@ -275,6 +309,38 @@ export default {
   methods: {
     substr: function (data) {
       return data.substring(data.lastIndexOf("/") + 1);
+    },
+    triEpisode: function (data) {
+      let tab = [];
+      let S01 = [];
+      let S02 = [];
+      let S03 = [];
+      let S04 = [];
+      let S05 = [];
+
+      data.map(function (value, key) {
+        let number = parseInt(value.substring(value.lastIndexOf("/") + 1));
+
+        if (number >= 1 && number <= 11) {
+          S01.push({ num: number });
+        } else if (number >= 12 && number <= 21) {
+          S02.push({ num: number });
+        } else if (number >= 22 && number <= 31) {
+          S03.push({ num: number });
+        } else if (number >= 32 && number <= 41) {
+          S04.push({ num: number });
+        } else if (number >= 42 && number <= 51) {
+          S05.push({ num: number });
+        }
+      });
+
+      tab[0] = { saison: "S01", numEp: S01 };
+      tab[1] = { saison: "S02", numEp: S02 };
+      tab[2] = { saison: "S03", numEp: S03 };
+      tab[3] = { saison: "S04", numEp: S04 };
+      tab[4] = { saison: "S05", numEp: S05 };
+
+      return tab;
     },
   },
 };
