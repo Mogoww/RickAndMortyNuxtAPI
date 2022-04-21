@@ -239,8 +239,9 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-4 gap-4">
-        <div v-for="items in episodes" :key="items.id">
+      <!-- <div class="grid grid-cols-4"> -->
+      <div class="">
+        <div v-for="items in episodes.res" :key="items.id">
           <div v-if="items.numEp.length > 0">
             {{ items.saison }}
             <div class="flex flex-wrap">
@@ -253,23 +254,7 @@
           </div>
         </div>
       </div>
-      <!-- <div class="">
-        <div v-for="item in character.episode" :key="item.id">
-          <div class="">-->
-      <!-- 1-11 S01
-            12-21 S02
-            22-31 S03
-            32-41 S04
-            42-51 S05 -->
-
-      <!-- flex flex-wrap -->
-
-      <!--  <n-link :to="'/episodes/' + substr(item)">
-              <CardEpisode :episodeId="substr(item)" />
-            </n-link>
-          </div>
-        </div>
-      </div>-->
+     
     </div>
   </div>
 </template>
@@ -300,7 +285,7 @@ export default {
       .then((res) => {
         this.character = res.data;
         this.episodes = this.triEpisode(this.character.episode);
-        console.log(this.episodes);
+        // console.log(this.episodes);
       })
       .catch((error) => {
         this.error = true;
@@ -317,7 +302,6 @@ export default {
       let S03 = [];
       let S04 = [];
       let S05 = [];
-
       data.map(function (value, key) {
         let number = parseInt(value.substring(value.lastIndexOf("/") + 1));
 
@@ -334,13 +318,24 @@ export default {
         }
       });
 
-      tab[0] = { saison: "S01", numEp: S01 };
-      tab[1] = { saison: "S02", numEp: S02 };
-      tab[2] = { saison: "S03", numEp: S03 };
-      tab[3] = { saison: "S04", numEp: S04 };
-      tab[4] = { saison: "S05", numEp: S05 };
+      tab.push({
+        count: [
+          S01.length,
+          S02.length,
+          S03.length,
+          S04.length,
+          S05.length,
+        ].filter(Boolean).length,
+        res: [
+          { saison: "Saison 1", numEp: S01 },
+          { saison: "Saison 2", numEp: S02 },
+          { saison: "Saison 3", numEp: S03 },
+          { saison: "Saison 4", numEp: S04 },
+          { saison: "Saison 5", numEp: S05 },
+        ],
+      });
 
-      return tab;
+      return tab[0];
     },
   },
 };

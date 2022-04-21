@@ -2,10 +2,10 @@
   <div>
     <!-- Loading  -->
     <Loading v-show="loadingStatus" />
-
+<keep-alive>
     <!-- list characters -->
     <div v-if="characters">
-      <div class="container-character">
+      <div class="container-character items-center	justify-center	">
         <div class="card" v-for="item in characters" :key="item.id">
           <n-link :to="'/characters/' + item.id">
             <CardCharacter :idCharacter="item.id" />
@@ -14,7 +14,7 @@
       </div>
       <Pagination :pageNum="page" :pageMax="pageMax" />
     </div>
-
+</keep-alive>
     <!-- One character -->
     <div v-if="characterId">
       <Character :idCharacter="characterId" />
@@ -72,6 +72,7 @@ export default {
     substr: function (data) {
       return data.substring(data.lastIndexOf("/") + 1);
     },
+    
   },
 };
 </script>

@@ -50,7 +50,7 @@ export default {
   justify-content: center;
 }
 .image-character {
-  border-radius: 10px 10px 0 0;
+  border-radius: 10px;
 }
 
 /* On mouse-over, add a deeper shadow */
