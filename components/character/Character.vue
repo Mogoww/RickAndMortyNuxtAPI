@@ -241,10 +241,23 @@
 
       <!-- <div class="grid grid-cols-4"> -->
       <div class="">
-        <div v-for="items in episodes.res" :key="items.id">
-          <div v-if="items.numEp.length > 0">
-            {{ items.saison }}
-            <div class="flex flex-wrap">
+        <div v-for="(items, index) in episodes.res" v-bind:key="index">
+          <div
+            v-if="items != null && items.numEp.length > 0"
+            class="border-t-4 border-b-4 pt-2 border-double"
+          >
+            <div class="flex justify-center">
+              <div class="image-saison">
+                <img
+                  :src="require('~/assets/images/' + items.saison + '.jpg')"
+                  :alt="items.saison"
+                />
+                <div class="flex justify-center text-xl italic">
+                  {{ updateNameSaison(items.saison) }}
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-wrap justify-center">
               <div v-for="item in items.numEp" :key="item.id">
                 <n-link :to="'/episodes/' + item.num">
                   <CardEpisode :episodeId="item.num" />
@@ -254,7 +267,6 @@
           </div>
         </div>
       </div>
-     
     </div>
   </div>
 </template>
@@ -285,7 +297,6 @@ export default {
       .then((res) => {
         this.character = res.data;
         this.episodes = this.triEpisode(this.character.episode);
-        // console.log(this.episodes);
       })
       .catch((error) => {
         this.error = true;
@@ -327,16 +338,19 @@ export default {
           S05.length,
         ].filter(Boolean).length,
         res: [
-          { saison: "Saison 1", numEp: S01 },
-          { saison: "Saison 2", numEp: S02 },
-          { saison: "Saison 3", numEp: S03 },
-          { saison: "Saison 4", numEp: S04 },
-          { saison: "Saison 5", numEp: S05 },
+          S01.length != 0 ? { saison: "S01", numEp: S01 } : null,
+          S02.length != 0 ? { saison: "S02", numEp: S02 } : null,
+          S03.length != 0 ? { saison: "S03", numEp: S03 } : null,
+          S04.length != 0 ? { saison: "S04", numEp: S04 } : null,
+          S05.length != 0 ? { saison: "S05", numEp: S05 } : null,
         ],
       });
 
       return tab[0];
     },
+    updateNameSaison: function(data){
+      return "Saison "+ data.split('S').pop()
+    }
   },
 };
 </script>
@@ -358,5 +372,8 @@ export default {
 }
 .episode:hover {
   background: #8cc961;
+}
+.image-saison {
+  width: 200px;
 }
 </style>
