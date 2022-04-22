@@ -7,8 +7,7 @@
     <div v-if="episodes">
       <div v-for="item in episodes" :key="item.id">
         <n-link :to="'/episodes/' + substr(item.url)">
-          {{ item.name }}
-          {{ item.episode }}
+          <CardEpisode :episodeId="substr(item.url)" />
         </n-link>
       </div>
       <Pagination :pageNum="page" :pageMax="pageMax" />
@@ -28,11 +27,11 @@
 
 <script>
 import Episode from "~/components/episode/Episode.vue";
-// import CardEpisode from "~/components/episode/CardEpisode.vue";
+import CardEpisode from "~/components/episode/CardEpisode.vue";
 import axios from "axios";
 
 export default {
-  components: { Episode },
+  components: { Episode, CardEpisode },
   data() {
     return {
       episodes: null,

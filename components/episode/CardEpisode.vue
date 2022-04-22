@@ -1,11 +1,14 @@
 <template>
   <div class="episode text-white font-bold py-2 px-4 rounded">
-    {{ episode.episode }}
+    <div>
+      {{ episode.name }}
+    </div>
+    <div>
+      {{ episode.episode }}
+    </div>
   </div>
 </template>
 
-<style>
-</style>
 
 <script>
 import axios from "axios";
@@ -28,3 +31,11 @@ export default {
   },
 };
 </script>
+
+<style  scoped>
+.episode {
+  background: linear-gradient(to bottom right, #9bca3d, #2e8841);
+  margin: 10px;
+  text-align: center;
+}
+</style>

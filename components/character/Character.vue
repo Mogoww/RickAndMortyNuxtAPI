@@ -366,10 +366,7 @@ export default {
     width: 400px;
   }
 }
-.episode {
-  background: linear-gradient(to bottom right, #9bca3d, #2e8841);
-  margin: 10px;
-}
+
 .episode:hover {
   background: #8cc961;
 }

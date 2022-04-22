@@ -4,14 +4,23 @@
     <div v-if="error">
       <NotFoundPage />
     </div>
+    
+    <div>
+      <div v-if="episode.episode != null">
+        <img
+          :src="
+            require('~/assets/images/' + substrSaison(episode.episode) + '.jpg')
+          "
+        />
+      </div>
+      components
+      {{ episode.name }}<br />
+      {{ episode.air_date }}<br />
+      {{ episode.episode }}<br />
 
-    components
-    {{ episode.name }}<br />
-    {{ episode.air_date }}<br />
-    {{ episode.episode }}<br />
-
-    <!-- Carousel des characters présent dans l'épisode -->
-    <Carousel :data="episode.characters" :type="'characters'" />
+      <!-- Carousel des characters présent dans l'épisode -->
+      <Carousel :data="episode.characters" :type="'characters'" />
+    </div>
   </div>
 </template>
 
@@ -37,6 +46,11 @@ export default {
       .catch((error) => {
         this.error = true;
       });
+  },
+  methods: {
+    substrSaison: function (data) {
+      if (data != null) return data.substring(0, data.indexOf("E"));
+    },
   },
 };
 </script>

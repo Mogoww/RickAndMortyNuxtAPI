@@ -2,11 +2,14 @@
   <div>
     <!-- Loading  -->
     <Loading v-show="loadingStatus" />
-<keep-alive>
+
     <!-- list characters -->
     <div v-if="characters">
-      <div class="container-character items-center	justify-center	">
+      <div
+        class="container-character flex flex-wrap items-center justify-center"
+      >
         <div class="card" v-for="item in characters" :key="item.id">
+          <Like :id="item.id" />
           <n-link :to="'/characters/' + item.id">
             <CardCharacter :idCharacter="item.id" />
           </n-link>
@@ -14,7 +17,6 @@
       </div>
       <Pagination :pageNum="page" :pageMax="pageMax" />
     </div>
-</keep-alive>
     <!-- One character -->
     <div v-if="characterId">
       <Character :idCharacter="characterId" />
@@ -31,11 +33,16 @@
 import Character from "~/components/character/Character.vue";
 import CardCharacter from "~/components/character/CardCharacter.vue";
 import Loading from "~/components/Loading.vue";
+import Like from "~/components/Like.vue";
+
 
 import axios from "axios";
 export default {
   components: {
-    Loading, CardCharacter, Character
+    Loading,
+    CardCharacter,
+    Character,
+    Like,
   },
   data() {
     return {
@@ -48,6 +55,7 @@ export default {
     };
   },
   created: async function () {
+    // this.$auth.$storage.setUniversal("key", "val")
     if (this.$route.params.id) {
       this.characterId = this.$route.params.id;
       this.loadingStatus = false;
@@ -67,12 +75,10 @@ export default {
         });
     }
   },
-
   methods: {
     substr: function (data) {
       return data.substring(data.lastIndexOf("/") + 1);
     },
-    
   },
 };
 </script>
@@ -80,8 +86,6 @@ export default {
 <style lang="scss" scoped>
 @import "~/assets/scss/variables";
 .container-character {
-  display: flex;
-  flex-wrap: wrap;
   .card {
     padding: 10px;
   }
