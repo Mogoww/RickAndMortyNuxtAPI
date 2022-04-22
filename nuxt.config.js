@@ -12,7 +12,12 @@ export default {
             { name: 'format-detection', content: 'telephone=no' }
         ],
         link: [
-            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+            { rel: "stylesheet", href: "https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" }
+        ],
+        script: [
+            { type: "module", src: "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js" },
+            { src: "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js" }
         ]
     },
 

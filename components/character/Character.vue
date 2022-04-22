@@ -239,7 +239,6 @@
         </div>
       </div>
 
-      <!-- <div class="grid grid-cols-4"> -->
       <div class="">
         <div v-for="(items, index) in episodes.res" v-bind:key="index">
           <div

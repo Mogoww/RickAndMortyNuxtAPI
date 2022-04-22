@@ -2,8 +2,6 @@
 
 <template>
   <div>
-    
-
     <div class="flex items-center justify-center">
       <div class="flex border-2 rounded">
         <input
@@ -127,18 +125,26 @@
     </ul>
 
     <div>
-     <Like/>
+      <!-- <Like/> -->
     </div>
 
     <!-- list characters -->
-    <div v-if="test">
+    <div class="container-character flex flex-wrap items-center justify-center">
       <div
-        class="container-character flex flex-wrap items-center justify-center"
+        class="card relative"
+        v-for="(item, index) in test"
+        v-bind:key="index"
       >
-        <div class="card" v-for="item in test" :key="item.id">
-          <n-link :to="'/characters/' + item.id">
-            <CardCharacter :idCharacter="item.id" />
+        <div v-if="item != null">
+          <n-link :to="'/characters/' + substr(item)">
+            <CardCharacter :idCharacter="substr(item)" />
           </n-link>
+          <Like
+            :id="'c' + substr(item)"
+            :type="'character'"
+            :url="item"
+            class="absolute like"
+          />
         </div>
       </div>
       <!-- <Pagination :pageNum="page" :pageMax="pageMax" /> -->
@@ -147,6 +153,17 @@
 </template>
 
 <style>
+.like {
+  right: 18px;
+  bottom: 15px;
+}
+
+@media only screen and (max-width: 800px) {
+  .like {
+    right: 18px;
+    bottom: 15px;
+  }
+}
 </style>
 
 <script>
@@ -164,27 +181,39 @@ export default {
     };
   },
   mounted() {
-    document.querySelector("#recherche_btn").addEventListener("click", () => {
-      if (document.querySelector("#character_radio").checked) {
-        console.log(document.querySelector("#recherche_text").value);
-        axios
-          .get(
-            "https://rickandmortyapi.com/api/character/?name=" +
-              document.querySelector("#recherche_text").value
-          )
-          .then((res) => {
-            // this.characters = res.data.results;
-            // this.pageMax = res.data.info.pages;
-            // this.loadingStatus = false;
-            this.test = res.data.results;
-            console.log(res);
-          })
-          .catch((error) => {
-            // this.error = true;
-            // this.loadingStatus = false;
-          });
-      }
-    });
+    // document.querySelector("#recherche_btn").addEventListener("click", () => {
+    //   if (document.querySelector("#character_radio").checked) {
+    //     console.log(document.querySelector("#recherche_text").value);
+    //     axios
+    //       .get(
+    //         "https://rickandmortyapi.com/api/character/?name=" +
+    //           document.querySelector("#recherche_text").value
+    //       )
+    //       .then((res) => {
+    //         // this.characters = res.data.results;
+    //         // this.pageMax = res.data.info.pages;
+    //         // this.loadingStatus = false;
+    //         this.test = res.data.results;
+    //         console.log(res);
+    //       })
+    //       .catch((error) => {
+    //         // this.error = true;
+    //         // this.loadingStatus = false;
+    //       });
+    //   }
+    // });
+
+    if (localStorage.getItem("character")) {
+      let tabTempo = [];
+      tabTempo = JSON.parse(localStorage.getItem("character"));
+      this.test = tabTempo;
+      console.log(tabTempo);
+    }
+  },
+  methods: {
+    substr: function (data) {
+      return data.substring(data.lastIndexOf("/") + 1);
+    },
   },
 };
 </script>

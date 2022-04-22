@@ -8,11 +8,16 @@
       <div
         class="container-character flex flex-wrap items-center justify-center"
       >
-        <div class="card" v-for="item in characters" :key="item.id">
-          <Like :id="item.id" />
+        <div class="card relative" v-for="item in characters" :key="item.id">
           <n-link :to="'/characters/' + item.id">
             <CardCharacter :idCharacter="item.id" />
           </n-link>
+          <Like
+            :id="'c' + item.id"
+            :type="'character'"
+            :url="item.url"
+            class="absolute like"
+          />
         </div>
       </div>
       <Pagination :pageNum="page" :pageMax="pageMax" />
@@ -34,7 +39,6 @@ import Character from "~/components/character/Character.vue";
 import CardCharacter from "~/components/character/CardCharacter.vue";
 import Loading from "~/components/Loading.vue";
 import Like from "~/components/Like.vue";
-
 
 import axios from "axios";
 export default {
@@ -89,5 +93,16 @@ export default {
   .card {
     padding: 10px;
   }
+}
+.like {
+  right: 18px;
+  bottom: 15px;
+}
+
+@media only screen and (max-width: 800px) {
+.like {
+  right: 18px;
+  bottom: 15px;
+}
 }
 </style>

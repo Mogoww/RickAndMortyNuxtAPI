@@ -8,7 +8,7 @@
       />
     </div>
     <div class="container">
-      <h4>
+      <h4 class="flex justify-center	w-9/12">
         <b>{{ character.name }}</b>
       </h4>
       <p></p>
