@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="type == 'character' ? 'like-chara' : 'like'" class="absolute">
     <div class="cursor-pointer text-3xl flex items-center">
       <ion-icon
         :id="'no-like' + id"
@@ -73,3 +73,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.like {
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.like-chara {
+  right: 18px;
+  bottom: 15px;
+}
+</style>

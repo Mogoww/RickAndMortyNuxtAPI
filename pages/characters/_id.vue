@@ -3,6 +3,8 @@
     <!-- Loading  -->
     <Loading v-show="loadingStatus" />
 
+    <Recherche   :prop="parentData" />
+
     <!-- list characters -->
     <div v-if="characters">
       <div
@@ -12,12 +14,7 @@
           <n-link :to="'/characters/' + item.id">
             <CardCharacter :idCharacter="item.id" />
           </n-link>
-          <Like
-            :id="'c' + item.id"
-            :type="'character'"
-            :url="item.url"
-            class="absolute like"
-          />
+          <Like :id="'c' + item.id" :type="'character'" :url="item.url" />
         </div>
       </div>
       <Pagination :pageNum="page" :pageMax="pageMax" />
@@ -31,6 +28,8 @@
     <div v-if="error">
       <NotFoundPage />
     </div>
+    sqdsd
+    {{parentData}}
   </div>
 </template>
 
@@ -56,6 +55,7 @@ export default {
       pageMax: null,
       error: false,
       loadingStatus: true,
+      parentData:[],
     };
   },
   created: async function () {
@@ -92,16 +92,5 @@ export default {
   .card {
     padding: 10px;
   }
-}
-.like {
-  right: 18px;
-  bottom: 15px;
-}
-
-@media only screen and (max-width: 800px) {
-.like {
-  right: 18px;
-  bottom: 15px;
-}
 }
 </style>

@@ -9,11 +9,10 @@
         <n-link :to="'/locations/' + substr(item.url)">
           <CardLocation :locationId="substr(item.url)" />
         </n-link>
-         <Like
+        <Like
           :id="'l' + substr(item.url)"
           :type="'location'"
           :url="item.url"
-          class="absolute like"
         />
       </div>
       <Pagination :pageNum="page" :pageMax="pageMax" />
@@ -78,7 +77,8 @@ export default {
 
 <style  lang='scss' >
 .like {
-  right: 18px;
-  bottom: 15px;
+  // right: 18px;
+  // top: 50%;
+  // transform: translateY(-50%);
 }
 </style>

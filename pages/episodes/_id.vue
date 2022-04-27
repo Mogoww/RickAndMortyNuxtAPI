@@ -13,7 +13,6 @@
           :id="'e' + substr(item.url)"
           :type="'episode'"
           :url="item.url"
-          class="absolute like"
         />
       </div>
       <Pagination :pageNum="page" :pageMax="pageMax" />
@@ -76,8 +75,4 @@ export default {
 </script>
 
 <style  lang='scss' >
-.like {
-  right: 18px;
-  bottom: 15px;
-}
 </style>
