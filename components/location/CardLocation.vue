@@ -20,6 +20,7 @@ export default {
       .get("https://rickandmortyapi.com/api/location/" + this.locationId)
       .then((res) => {
         this.location = res.data;
+        console.log(res.data);
       })
       .catch((error) => {
         this.error = true;

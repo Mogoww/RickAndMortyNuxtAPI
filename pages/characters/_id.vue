@@ -59,7 +59,6 @@ export default {
     };
   },
   created: async function () {
-    // this.$auth.$storage.setUniversal("key", "val")
     if (this.$route.params.id) {
       this.characterId = this.$route.params.id;
       this.loadingStatus = false;

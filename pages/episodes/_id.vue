@@ -5,10 +5,16 @@
 
     <!-- List épisodes -->
     <div v-if="episodes">
-      <div v-for="item in episodes" :key="item.id">
+      <div v-for="item in episodes" :key="item.id" class="relative">
         <n-link :to="'/episodes/' + substr(item.url)">
           <CardEpisode :episodeId="substr(item.url)" />
         </n-link>
+        <Like
+          :id="'e' + substr(item.url)"
+          :type="'episode'"
+          :url="item.url"
+          class="absolute like"
+        />
       </div>
       <Pagination :pageNum="page" :pageMax="pageMax" />
     </div>
@@ -70,4 +76,8 @@ export default {
 </script>
 
 <style  lang='scss' >
+.like {
+  right: 18px;
+  bottom: 15px;
+}
 </style>

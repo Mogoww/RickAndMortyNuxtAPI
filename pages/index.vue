@@ -132,7 +132,7 @@
     <div class="container-character flex flex-wrap items-center justify-center">
       <div
         class="card relative"
-        v-for="(item, index) in test"
+        v-for="(item, index) in characters"
         v-bind:key="index"
       >
         <div v-if="item != null">
@@ -147,12 +147,46 @@
           />
         </div>
       </div>
-      <!-- <Pagination :pageNum="page" :pageMax="pageMax" /> -->
+    </div>
+
+    <!-- List épisodes -->
+    <div v-for="(item, index) in episodes" v-bind:key="index" class="relative">
+      <div v-if="item != null">
+        <n-link :to="'/episodes/' + substr(item)">
+          <CardEpisode :episodeId="substr(item)" />
+        </n-link>
+        <Like
+          :id="'e' + substr(item)"
+          :type="'episode'"
+          :url="item"
+          class="absolute like"
+        />
+      </div>
+    </div>
+
+    <!-- List épisodes -->
+    <div v-for="(item, index) in locations" v-bind:key="index" class="relative">
+      <div v-if="item != null">
+        <n-link :to="'/locations/' + substr(item)">
+          <CardLocation :locationId="substr(item)" />
+        </n-link>
+        <Like
+          :id="'l' + substr(item)"
+          :type="'location'"
+          :url="item"
+          class="absolute like"
+        />
+      </div>
     </div>
   </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
+.container-character {
+  .card {
+    padding: 10px;
+  }
+}
 .like {
   right: 18px;
   bottom: 15px;
@@ -166,48 +200,46 @@
 }
 </style>
 
+
+
+
 <script>
 import axios from "axios";
 import CardCharacter from "~/components/character/CardCharacter.vue";
+import CardEpisode from "~/components/episode/CardEpisode.vue";
+import CardLocation from "~/components/location/CardLocation.vue";
 
 export default {
   name: "IndexPage",
   components: {
     CardCharacter,
+    CardEpisode,
+    CardLocation,
   },
   data() {
     return {
-      test: [],
+      characters: [],
+      episodes: [],
+      locations: [],
     };
   },
   mounted() {
-    // document.querySelector("#recherche_btn").addEventListener("click", () => {
-    //   if (document.querySelector("#character_radio").checked) {
-    //     console.log(document.querySelector("#recherche_text").value);
-    //     axios
-    //       .get(
-    //         "https://rickandmortyapi.com/api/character/?name=" +
-    //           document.querySelector("#recherche_text").value
-    //       )
-    //       .then((res) => {
-    //         // this.characters = res.data.results;
-    //         // this.pageMax = res.data.info.pages;
-    //         // this.loadingStatus = false;
-    //         this.test = res.data.results;
-    //         console.log(res);
-    //       })
-    //       .catch((error) => {
-    //         // this.error = true;
-    //         // this.loadingStatus = false;
-    //       });
-    //   }
-    // });
-
     if (localStorage.getItem("character")) {
       let tabTempo = [];
       tabTempo = JSON.parse(localStorage.getItem("character"));
-      this.test = tabTempo;
-      console.log(tabTempo);
+      this.characters = tabTempo;
+    }
+    if (localStorage.getItem("episode")) {
+      let tabTempo = [];
+      tabTempo = JSON.parse(localStorage.getItem("episode"));
+      this.episodes = tabTempo;
+      console.log(localStorage.getItem("episode"));
+    }
+    if (localStorage.getItem("location")) {
+      let tabTempo = [];
+      tabTempo = JSON.parse(localStorage.getItem("location"));
+      this.locations = tabTempo;
+      console.log(localStorage.getItem("location"));
     }
   },
   methods: {
