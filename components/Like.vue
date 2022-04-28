@@ -1,6 +1,14 @@
 <template>
-  <div :class="type == 'character' ? 'like-chara' : 'like'" class="absolute">
-    <div class="cursor-pointer text-3xl flex items-center">
+  <div
+    :class="[
+      type == 'character' ? 'like-chara' : 'like',
+      oneDisplay == true ? '' : 'absolute',
+    ]"
+  >
+    <div
+      class="cursor-pointer flex items-center"
+      :class="oneDisplay == true ? 'text-8xl' : 'text-3xl'"
+    >
       <ion-icon
         :id="'no-like' + id"
         class="text-red-700"
@@ -18,9 +26,8 @@
 <script>
 export default {
   name: "Like",
-  props: ["id", "url", "type"],
+  props: ["id", "url", "type", "oneDisplay"],
   mounted: function () {
-    // localStorage.setItem(this.type, "");
     [
       document.querySelector("#no-like" + this.id + ""),
       document.querySelector("#yes-like" + this.id + ""),
@@ -32,7 +39,6 @@ export default {
         document
           .querySelector("#no-like" + this.id + "")
           .classList.toggle("hidden");
-        console.log("mfkjgmgjf");
 
         let data = [];
         let tabTempo = [];

@@ -4,8 +4,9 @@
     <div v-if="error">
       <NotFoundPage />
     </div>
-
+    <Loading v-else-if="loadingStatus" v-show="loadingStatus" />
     <div v-else>
+      {{ character.length }}
       <div>
         <div class="character-img">
           <img :src="character.image" :alt="character.name" />
@@ -14,6 +15,15 @@
 
       <div>
         <div class="bg-green-200 py-32 px-10">
+          <div class="flex content-center  justify-center">
+            <Like
+              :id="'c' + character.id"
+              :type="'character'"
+              :url="character.url"
+              :oneDisplay="true"
+            />
+          </div>
+
           <div class="bg-white p-10 md:w-3/4 lg:w-1/2 mx-auto">
             <div>
               <div class="flex items-center mb-5">
@@ -288,6 +298,7 @@ export default {
       character: [],
       error: false,
       episodes: [],
+      loadingStatus: true,
     };
   },
   created: async function () {
@@ -296,8 +307,10 @@ export default {
       .then((res) => {
         this.character = res.data;
         this.episodes = this.triEpisode(this.character.episode);
+        this.loadingStatus = false;
       })
       .catch((error) => {
+        this.loadingStatus = false;
         this.error = true;
       });
   },
@@ -347,9 +360,9 @@ export default {
 
       return tab[0];
     },
-    updateNameSaison: function(data){
-      return "Saison "+ data.split('S').pop()
-    }
+    updateNameSaison: function (data) {
+      return "Saison " + data.split("S").pop();
+    },
   },
 };
 </script>

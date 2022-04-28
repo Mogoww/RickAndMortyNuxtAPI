@@ -5,7 +5,7 @@
         <input
           type="text"
           class="px-4 py-2 w-80"
-          placeholder="Search..."
+          placeholder="Taper le nom ..."
           id="recherche_text"
         />
         <button
@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <ul class="grid grid-cols-3 gap-x-5 m-10 max-w-md mx-auto">
+    <!-- <ul class="grid grid-cols-3 gap-x-5 m-10 max-w-md mx-auto">
       <li class="relative">
         <input
           class="sr-only peer"
@@ -121,7 +121,7 @@
           🤔
         </div>
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
@@ -129,41 +129,28 @@
 import axios from "axios";
 
 export default {
-  props:["parentData"],
+  props: ["parentData",'typeRecherche'],
   data() {
     return {
-      name:null,
+      name: null,
     };
-  },
-  created: async function () {
-    // await axios
-    //   .get("https://rickandmortyapi.com/api/character/")
-    //   .then((res) => {
-    //     this.parentData = res.data;
-    //     console.log(res);
-    //     this.$emit("parentData", parentData);
-    //   })
-    //   .catch((error) => {
-    //     this.error = true;
-    //     this.loadingStatus = false;
-    //   });
   },
   methods: {
     recherche: async function () {
-      this.name = document.querySelector("#recherche_text").value
+      this.name = document.querySelector("#recherche_text").value;
       await axios
-      .get("https://rickandmortyapi.com/api/character/?name="+this.name)
-      .then((res) => {
-        // this.parentData = res.data;
-        // console.log(this.parentData);
-        console.log(res);
-        this.$emit("interface",res.data);
-      })
-      .catch((error) => {
-        this.error = true;
-        this.loadingStatus = false;
-      });
+        .get("https://rickandmortyapi.com/api/"+this.typeRecherche+"/?name=" + this.name)
+        .then((res) => {
+          this.$emit("interface", res);
+        })
+        .catch((error) => {
+          this.$emit("interface", 404);
+        });
     },
+  },
+  mounted: function () {
+    if (this.$route.query.name)
+      document.querySelector("#recherche_text").value = this.$route.query.name;
   },
 };
 </script>

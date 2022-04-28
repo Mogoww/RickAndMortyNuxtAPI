@@ -1,7 +1,7 @@
 <template>
   <div class="pagination">
     <div v-if="parseInt(pageNum) > 2">
-      <n-link :to="'?page=' + 1">
+      <n-link :to="'?page=' + 1 + params">
         {{ 1 }}
       </n-link>
     </div>
@@ -12,23 +12,25 @@
     <div v-if="pageNum > 3">...</div>
 
     <div v-if="parseInt(pageNum) > 1">
-      <n-link :to="'?page=' + (parseInt(pageNum) - 1)">
+      <n-link :to="'?page=' + (parseInt(pageNum) - 1) + params">
         {{ pageNum - 1 }}
       </n-link>
     </div>
 
-    <n-link :to="'?page=' + parseInt(pageNum)" class="active">
+    <n-link :to="'?page=' + parseInt(pageNum) + params" class="active">
       {{ pageNum }}
     </n-link>
 
     <div v-if="parseInt(pageNum) < parseInt(pageMax)">
-      <n-link :to="'?page=' + sum()"> {{ sum() }} </n-link>
+      <n-link :to="'?page=' + sum() + params"> {{ sum() }} </n-link>
     </div>
 
     <div v-if="pageNum < pageMax - 2">...</div>
 
     <div v-if="parseInt(pageNum) < parseInt(pageMax) - 1">
-      <n-link :to="'?page=' + parseInt(pageMax)"> {{ pageMax }} </n-link>
+      <n-link :to="'?page=' + parseInt(pageMax) + params">
+        {{ pageMax }}
+      </n-link>
     </div>
     <div v-else>
       <n-link to=""> </n-link>
@@ -42,6 +44,7 @@ export default {
   data() {
     return {
       page: 1,
+      params: null,
       error: false,
     };
   },
@@ -52,6 +55,15 @@ export default {
     comparate() {
       return parseInt(this.pageNum) < parseInt(this.pageMax);
     },
+  },
+  mounted: function () {
+    let urlPara = this.$route.query;
+    let paramTempo = "";
+    Object.keys(urlPara).map(function (key) {
+      if (key != "page") paramTempo += key + "=" + urlPara[key];
+      if (key != Object.keys(urlPara).pop()) paramTempo += "&";
+    });
+    this.params = paramTempo;
   },
   watch: {
     "$route.query"() {

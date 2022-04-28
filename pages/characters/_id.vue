@@ -1,35 +1,34 @@
 <template>
   <div>
-    <!-- Loading  -->
-    <Loading v-show="loadingStatus" />
-
-    <Recherche :parentData="parentData" @interface="handleFcAfterDateBack" />
-
-    <!-- list characters -->
-    <div v-if="characters">
-      <div
-        class="container-character flex flex-wrap items-center justify-center"
-      >
-        <div class="card relative" v-for="item in characters" :key="item.id">
-          <n-link :to="'/characters/' + item.id">
-            <CardCharacter :idCharacter="item.id" />
-          </n-link>
-          <Like :id="'c' + item.id" :type="'character'" :url="item.url" />
-        </div>
-      </div>
-      <Pagination :pageNum="page" :pageMax="pageMax" />
-    </div>
-    <!-- One character -->
-    <div v-if="characterId">
-      <Character :idCharacter="characterId" />
-    </div>
-
     <!-- Aucun résultat -->
     <div v-if="error">
       <NotFoundPage />
     </div>
-    sqdsd
-    {{ parentData }}
+    <div v-else>
+      <!-- list characters -->
+      <div v-if="characters">
+        <!-- Loading  -->
+        <Loading v-show="loadingStatus" />
+
+        <Recherche :typeRecherche="'character'" @interface="recherche" />
+
+        <div
+          class="container-character flex flex-wrap items-center justify-center"
+        >
+          <div class="card relative" v-for="item in characters" :key="item.id">
+            <n-link :to="'/characters/' + item.id">
+              <CardCharacter :idCharacter="item.id" />
+            </n-link>
+            <Like :id="'c' + item.id" :type="'character'" :url="item.url" />
+          </div>
+        </div>
+        <Pagination :pageNum="page" :pageMax="pageMax" />
+      </div>
+      <!-- One character -->
+      <div v-if="characterId">
+        <Character :idCharacter="characterId" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -55,8 +54,7 @@ export default {
       pageMax: null,
       error: false,
       loadingStatus: true,
-      parentData: [],
-      withData: null,
+      params: null,
     };
   },
   created: async function () {
@@ -65,9 +63,13 @@ export default {
       this.loadingStatus = false;
     } else {
       if (this.$route.query.page) this.page = this.$route.query.page;
-      console.log(this.withData);
+      this.createUrl();
       await axios
-        .get("https://rickandmortyapi.com/api/character/?page=" + this.page)
+        .get(
+          "https://rickandmortyapi.com/api/character/?page=" +
+            this.page +
+            this.params
+        )
         .then((res) => {
           this.characters = res.data.results;
           this.pageMax = res.data.info.pages;
@@ -83,16 +85,33 @@ export default {
     substr: function (data) {
       return data.substring(data.lastIndexOf("/") + 1);
     },
-    handleFcAfterDateBack(event) {
-      this.characters = event.results;
-      this.pageMax = event.info.pages;
-      if (event.info.next)
-        this.withData = event.info.next.substring(event.info.next.indexOf("&"));
-      this.$router.push({ path: 'characters', query: { name: 'private' }})
-
-      // https://rickandmortyapi.com/api/character/?page=2&name=rick
-      // this.loadingStatus = false;
-      console.log("data after child handle: ", event); // get the data after child dealing
+    recherche(event) {
+      if (event != 404) {
+        if (event.config.url.substring(event.config.url.indexOf("=") + 1) == "")
+          this.$router.push({ path: "characters", query: { page: 1 } });
+        else
+          this.$router.push({
+            path: "characters",
+            query: {
+              page: 1,
+              name: event.config.url.substring(
+                event.config.url.indexOf("=") + 1
+              ),
+            },
+          });
+      } else {
+        this.error = true;
+      }
+    },
+    createUrl() {
+      let urlPara = this.$route.query;
+      let paramTempo = "";
+      Object.keys(urlPara).map(function (key) {
+        if (key != "page" && (key == "name" || key == "status"))
+          paramTempo += key + "=" + urlPara[key];
+        if (key != Object.keys(urlPara).pop()) paramTempo += "&";
+      });
+      this.params = paramTempo;
     },
   },
 };
