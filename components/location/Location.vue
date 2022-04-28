@@ -112,6 +112,7 @@
       <div
         v-if="location.residents !== undefined && location.residents.length > 0"
       >
+      <div><h1>Personnes résident sur cette planete</h1></div>
         <Carousel
           class="px-10"
           :data="location.residents"

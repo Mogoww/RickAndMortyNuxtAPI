@@ -85,7 +85,15 @@
                   outline-none
                 "
               >
-                {{ episode.air_date }}
+                {{
+                  new Date(episode.air_date).toLocaleString("fr-FR", {
+                    weekday: "long",
+                    day: "2-digit",
+                    year: "numeric",
+                    month: "long",
+                  })
+                }}
+                <!-- {{ episode.air_date }} -->
               </div>
             </div>
 
@@ -135,6 +143,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
   props: ["episodeId"],
   data() {

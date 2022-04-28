@@ -1,43 +1,59 @@
-
-
 <template>
   <div>
-    <div class="text-6xl  text-center font-normal leading-normal mt-0 mb-2 text-pink-800">Vos likes</div>
-
-    <!-- list characters -->
-    <div class="container-character flex flex-wrap items-center justify-center">
+    <div v-if="characters.length > 0 || episodes.length > 0 || locations.length > 0">
       <div
-        class="card relative"
-        v-for="(item, index) in characters"
-        v-bind:key="index"
+        class="text-6xl text-center font-normal leading-normal mt-0 mb-2 text-pink-800"
       >
-        <div v-if="item != null">
-          <n-link :to="'/characters/' + substr(item)">
-            <CardCharacter :idCharacter="substr(item)" />
-          </n-link>
-          <Like :id="'c' + substr(item)" :type="'character'" :url="item" />
+        Vos likes
+      </div>
+
+      <!-- list characters -->
+      <div v-if="characters.length > 0">
+        <div>Vos personnages préféré</div>
+        <div class="container-character flex flex-wrap items-center justify-center">
+          <div
+            class="card relative"
+            v-for="(item, index) in characters"
+            v-bind:key="index"
+          >
+            <div v-if="item != null">
+              <n-link :to="'/characters/' + substr(item)">
+                <CardCharacter :idCharacter="substr(item)" />
+              </n-link>
+              <Like :id="'c' + substr(item)" :type="'character'" :url="item" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- List épisodes -->
+      <div v-if="episodes.length > 0">
+        <div>Vos episodes préféré</div>
+        <div v-for="(item, index) in episodes" v-bind:key="index" class="relative">
+          <div v-if="item != null">
+            <n-link :to="'/episodes/' + substr(item)">
+              <CardEpisode :episodeId="substr(item)" />
+            </n-link>
+            <Like :id="'e' + substr(item)" :type="'episode'" :url="item" />
+          </div>
+        </div>
+      </div>
+
+      <!-- List épisodes -->
+      <div v-if="locations.length > 0">
+        <div>Vos locations préféré</div>
+        <div v-for="(item, index) in locations" v-bind:key="index" class="relative">
+          <div v-if="item != null">
+            <n-link :to="'/locations/' + substr(item)">
+              <CardLocation :locationId="substr(item)" />
+            </n-link>
+            <Like :id="'l' + substr(item)" :type="'location'" :url="item" />
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- List épisodes -->
-    <div v-for="(item, index) in episodes" v-bind:key="index" class="relative">
-      <div v-if="item != null">
-        <n-link :to="'/episodes/' + substr(item)">
-          <CardEpisode :episodeId="substr(item)" />
-        </n-link>
-        <Like :id="'e' + substr(item)" :type="'episode'" :url="item" />
-      </div>
-    </div>
-
-    <!-- List épisodes -->
-    <div v-for="(item, index) in locations" v-bind:key="index" class="relative">
-      <div v-if="item != null">
-        <n-link :to="'/locations/' + substr(item)">
-          <CardLocation :locationId="substr(item)" />
-        </n-link>
-        <Like :id="'l' + substr(item)" :type="'location'" :url="item" />
-      </div>
+    <div v-else>
+      Vous pouvez liker des episodes, personne ou localisation. ils seront visible ici
     </div>
   </div>
 </template>
@@ -49,9 +65,6 @@
   }
 }
 </style>
-
-
-
 
 <script>
 import axios from "axios";
