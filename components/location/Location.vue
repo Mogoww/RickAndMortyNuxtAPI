@@ -4,14 +4,120 @@
     <div v-if="error">
       <NotFoundPage />
     </div>
+    <Loading v-else-if="loadingStatus" v-show="loadingStatus" />
+    <div v-else>
+      <div class="bg-green-200 py-32 px-10">
+        <div class="flex content-center justify-center">
+          <Like
+            :id="'l' + location.id"
+            :type="'location'"
+            :url="location.url"
+            :oneDisplay="true"
+          />
+        </div>
+        <div class="bg-white p-10 md:w-3/4 lg:w-1/2 mx-auto">
+          <div>
+            <div class="flex items-center mb-5">
+              <div
+                class="
+                  inline-block
+                  w-20
+                  mr-6
+                  text-right
+                  font-bold
+                  text-gray-600
+                "
+              >
+                Nom
+              </div>
 
-    <!-- {{location}} -->
-    <!-- Carousel des characters présent dans la location -->
+              <div
+                class="
+                  flex-1
+                  py-2
+                  border-b-2 border-gray-400
+                  focus:border-green-400
+                  text-gray-600
+                  placeholder-gray-400
+                  outline-none
+                "
+              >
+                {{ location.name }}
+              </div>
+            </div>
 
-    <div
-      v-if="location.residents !== undefined && location.residents.length > 0"
-    >
-      <Carousel class="px-10" :data="location.residents" :type="'characters'" />
+            <div class="flex items-center mb-10">
+              <div
+                class="
+                  inline-block
+                  w-20
+                  mr-6
+                  text-right
+                  font-bold
+                  text-gray-600
+                "
+              >
+                type
+              </div>
+
+              <div
+                class="
+                  flex-1
+                  py-2
+                  border-b-2 border-gray-400
+                  focus:border-green-400
+                  text-gray-600
+                  placeholder-gray-400
+                  outline-none
+                "
+              >
+                {{ location.type }}
+              </div>
+            </div>
+
+            <div class="flex items-center mb-10">
+              <div
+                class="
+                  inline-block
+                  w-20
+                  mr-6
+                  text-right
+                  font-bold
+                  text-gray-600
+                "
+              >
+                dimension
+              </div>
+
+              <div
+                class="
+                  flex-1
+                  py-2
+                  border-b-2 border-gray-400
+                  focus:border-green-400
+                  text-gray-600
+                  placeholder-gray-400
+                  outline-none
+                "
+              >
+                {{ location.dimension }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel des characters présent dans la location -->
+
+      <div
+        v-if="location.residents !== undefined && location.residents.length > 0"
+      >
+        <Carousel
+          class="px-10"
+          :data="location.residents"
+          :type="'characters'"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -28,6 +134,7 @@ export default {
     return {
       location: [],
       error: false,
+      loadingStatus: true,
     };
   },
   created: async function () {
@@ -35,10 +142,11 @@ export default {
       .get("https://rickandmortyapi.com/api/location/" + this.locationId)
       .then((res) => {
         this.location = res.data;
-        console.log(res);
+        this.loadingStatus = false;
       })
       .catch((error) => {
         this.error = true;
+        this.loadingStatus = false;
       });
   },
 };

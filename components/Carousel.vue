@@ -50,6 +50,7 @@ export default {
           {
             breakpoint: 600,
             settings: {
+              dots: false,
               slidesToShow: 2,
               slidesToScroll: 2,
               initialSlide: 2,
@@ -61,6 +62,7 @@ export default {
               dots: false,
               slidesToShow: 1,
               slidesToScroll: 1,
+              initialSlide: 1,
             },
           },
         ],

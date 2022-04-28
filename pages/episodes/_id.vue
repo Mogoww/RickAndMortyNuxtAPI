@@ -26,7 +26,7 @@
       </div>
 
       <!-- Juste un épisode -->
-      <div v-if="episodeId" style="margin: 100px">
+      <div v-if="episodeId">
         <Episode :episodeId="episodeId" />
       </div>
     </div>
