@@ -9,6 +9,7 @@
           id="recherche_text"
         />
         <button
+          v-on:click="recherche"
           class="flex items-center justify-center px-4 border-l"
           id="recherche_btn"
         >
@@ -128,23 +129,41 @@
 import axios from "axios";
 
 export default {
+  props:["parentData"],
   data() {
     return {
-      parentData: [],
+      name:null,
     };
   },
   created: async function () {
-    await axios
-      .get("https://rickandmortyapi.com/api/character/")
+    // await axios
+    //   .get("https://rickandmortyapi.com/api/character/")
+    //   .then((res) => {
+    //     this.parentData = res.data;
+    //     console.log(res);
+    //     this.$emit("parentData", parentData);
+    //   })
+    //   .catch((error) => {
+    //     this.error = true;
+    //     this.loadingStatus = false;
+    //   });
+  },
+  methods: {
+    recherche: async function () {
+      this.name = document.querySelector("#recherche_text").value
+      await axios
+      .get("https://rickandmortyapi.com/api/character/?name="+this.name)
       .then((res) => {
-        this.parentData = res.data;
+        // this.parentData = res.data;
+        // console.log(this.parentData);
         console.log(res);
-        this.$emit('parentData', parentData)
+        this.$emit("interface",res.data);
       })
       .catch((error) => {
         this.error = true;
         this.loadingStatus = false;
       });
+    },
   },
 };
 </script>

@@ -3,7 +3,7 @@
     <!-- Loading  -->
     <Loading v-show="loadingStatus" />
 
-    <Recherche   :prop="parentData" />
+    <Recherche :parentData="parentData" @interface="handleFcAfterDateBack" />
 
     <!-- list characters -->
     <div v-if="characters">
@@ -29,7 +29,7 @@
       <NotFoundPage />
     </div>
     sqdsd
-    {{parentData}}
+    {{ parentData }}
   </div>
 </template>
 
@@ -55,7 +55,8 @@ export default {
       pageMax: null,
       error: false,
       loadingStatus: true,
-      parentData:[],
+      parentData: [],
+      withData: null,
     };
   },
   created: async function () {
@@ -64,7 +65,7 @@ export default {
       this.loadingStatus = false;
     } else {
       if (this.$route.query.page) this.page = this.$route.query.page;
-
+      console.log(this.withData);
       await axios
         .get("https://rickandmortyapi.com/api/character/?page=" + this.page)
         .then((res) => {
@@ -81,6 +82,17 @@ export default {
   methods: {
     substr: function (data) {
       return data.substring(data.lastIndexOf("/") + 1);
+    },
+    handleFcAfterDateBack(event) {
+      this.characters = event.results;
+      this.pageMax = event.info.pages;
+      if (event.info.next)
+        this.withData = event.info.next.substring(event.info.next.indexOf("&"));
+      this.$router.push({ path: 'characters', query: { name: 'private' }})
+
+      // https://rickandmortyapi.com/api/character/?page=2&name=rick
+      // this.loadingStatus = false;
+      console.log("data after child handle: ", event); // get the data after child dealing
     },
   },
 };
