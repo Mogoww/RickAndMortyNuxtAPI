@@ -9,7 +9,6 @@
   </div>
 </template>
 
-
 <script>
 import axios from "axios";
 export default {
@@ -32,10 +31,13 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style scoped>
 .episode {
   background: linear-gradient(to bottom right, #9bca3d, #2e8841);
   margin: 10px;
   text-align: center;
+}
+.episode:hover {
+  background: #8cc961;
 }
 </style>

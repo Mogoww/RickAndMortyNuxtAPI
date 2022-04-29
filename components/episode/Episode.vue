@@ -10,11 +10,7 @@
         <div class="flex items-center justify-center">
           <img
             class="img-episode"
-            :src="
-              require('~/assets/images/' +
-                substrSaison(episode.episode) +
-                '.jpg')
-            "
+            :src="require('~/assets/images/' + substrSaison(episode.episode) + '.jpg')"
           />
         </div>
       </div>
@@ -32,58 +28,24 @@
         <div class="bg-white p-10 md:w-3/4 lg:w-1/2 mx-auto">
           <div>
             <div class="flex items-center mb-5">
-              <div
-                class="
-                  inline-block
-                  w-20
-                  mr-6
-                  text-right
-                  font-bold
-                  text-gray-600
-                "
-              >
+              <div class="inline-block w-20 mr-6 text-right font-bold text-gray-600">
                 Nom
               </div>
 
               <div
-                class="
-                  flex-1
-                  py-2
-                  border-b-2 border-gray-400
-                  focus:border-green-400
-                  text-gray-600
-                  placeholder-gray-400
-                  outline-none
-                "
+                class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
               >
                 {{ episode.name }}
               </div>
             </div>
 
             <div class="flex items-center mb-10">
-              <div
-                class="
-                  inline-block
-                  w-20
-                  mr-6
-                  text-right
-                  font-bold
-                  text-gray-600
-                "
-              >
+              <div class="inline-block w-20 mr-6 text-right font-bold text-gray-600">
                 Date
               </div>
 
               <div
-                class="
-                  flex-1
-                  py-2
-                  border-b-2 border-gray-400
-                  focus:border-green-400
-                  text-gray-600
-                  placeholder-gray-400
-                  outline-none
-                "
+                class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
               >
                 {{
                   new Date(episode.air_date).toLocaleString("fr-FR", {
@@ -98,29 +60,12 @@
             </div>
 
             <div class="flex items-center mb-10">
-              <div
-                class="
-                  inline-block
-                  w-20
-                  mr-6
-                  text-right
-                  font-bold
-                  text-gray-600
-                "
-              >
+              <div class="inline-block w-20 mr-6 text-right font-bold text-gray-600">
                 episode
               </div>
 
               <div
-                class="
-                  flex-1
-                  py-2
-                  border-b-2 border-gray-400
-                  focus:border-green-400
-                  text-gray-600
-                  placeholder-gray-400
-                  outline-none
-                "
+                class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
               >
                 {{ episode.episode }}
               </div>
@@ -131,11 +76,7 @@
       <div>
         <h1>Personnages présent dans cette épisode</h1>
         <!-- Carousel des characters présent dans l'épisode -->
-        <Carousel
-          :data="episode.characters"
-          :type="'characters'"
-          class="px-8"
-        />
+        <Carousel :data="episode.characters" :type="'characters'" class="px-8" />
       </div>
     </div>
   </div>
@@ -179,4 +120,5 @@ export default {
 .img-episode {
   height: 400px;
 }
+
 </style>

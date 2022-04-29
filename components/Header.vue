@@ -58,13 +58,13 @@
           "
         >
           <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
-            <n-link to="/characters">Personnage</n-link>
+            <n-link to="/characters">Personnages</n-link>
           </li>
           <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
             <n-link to="/episodes">Episodes</n-link>
           </li>
           <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
-            <n-link to="/locations">Localisation</n-link>
+            <n-link to="/locations">Localisations</n-link>
           </li>
         </ul>
       </nav>

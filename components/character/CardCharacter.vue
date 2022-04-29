@@ -1,22 +1,16 @@
 <template>
   <div class="card bg-white">
     <div class="image-div">
-      <img
-        class="image-character"
-        :src="character.image"
-        :alt="character.name"
-      />
+      <img class="image-character" :src="character.image" :alt="character.name" />
     </div>
     <div class="container">
-      <h4 class="flex justify-center	w-9/12">
+      <h4 class="flex justify-center w-9/12">
         <b>{{ character.name }}</b>
       </h4>
       <p></p>
     </div>
   </div>
 </template>
-
-
 
 <script>
 import axios from "axios";
@@ -36,7 +30,7 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 @import "~/assets/scss/variables";
 .card {
   border-radius: 10px;

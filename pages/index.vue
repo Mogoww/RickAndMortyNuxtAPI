@@ -1,28 +1,24 @@
 <template>
-  <div style="">
-    <div
-      v-if="
-        characters.length > 0 || episodes.length > 0 || locations.length > 0
-      "
-    >
+  <div>
+    <div v-if="characters.length > 0 || episodes.length > 0 || locations.length > 0">
       <div
-        class="
-          text-6xl text-center
-          font-normal
-          leading-normal
-          mt-0
-          mb-2
-          text-pink-800
-        "
+        class="text-6xl text-center font-normal leading-normal mt-0 mb-2 text-pink-800"
       >
-        Vos likes
+        VOS LIKES
       </div>
 
       <!-- list characters -->
       <div v-if="characters.length > 0">
-        <div>Vos personnages préféré</div>
+        <div class="flex items-center justify-center mt-4">
+          <div class="text-3xl title">
+            Vos personnages préférés
+            <Toggle @update:parent="toggleCharacter = !$event" class="toggle" />
+          </div>
+        </div>
+
         <div
           class="container-character flex flex-wrap items-center justify-center"
+          :class="{ hidden: toggleCharacter }"
         >
           <div
             class="card relative"
@@ -41,11 +37,18 @@
 
       <!-- List épisodes -->
       <div v-if="episodes.length > 0">
-        <div>Vos episodes préféré</div>
+        <div class="flex items-center justify-center mt-4">
+          <div class="text-3xl title">
+            Vos épisodes préférés
+            <Toggle @update:parent="toggleEpisode = !$event" class="toggle" />
+          </div>
+        </div>
+
         <div
           v-for="(item, index) in episodes"
           v-bind:key="index"
           class="relative"
+          :class="{ hidden: toggleEpisode }"
         >
           <div v-if="item != null">
             <n-link :to="'/episodes/' + substr(item)">
@@ -58,11 +61,18 @@
 
       <!-- List épisodes -->
       <div v-if="locations.length > 0">
-        <div>Vos locations préféré</div>
+        <div class="flex items-center justify-center mt-4">
+          <div class="text-3xl title">
+            Vos planètes préférées
+            <Toggle @update:parent="toggleLocation = !$event" class="toggle" />
+          </div>
+        </div>
+
         <div
           v-for="(item, index) in locations"
           v-bind:key="index"
           class="relative"
+          :class="{ hidden: toggleLocation }"
         >
           <div v-if="item != null">
             <n-link :to="'/locations/' + substr(item)">
@@ -73,10 +83,15 @@
         </div>
       </div>
     </div>
+
+    
     <div v-else id="presentation-like" class="flex justify-center items-center">
       <div class="text-4xl text-center">
-        Vous pouvez liker des episodes, personne ou localisation. ils seront
-        visible ici
+        Bienvenue sur le site de la série<br />
+        <strong>Rick et Morty</strong><br /><br />
+
+        Vous pouvez liker des épisodes, personnages ou localisations et les retrouver sur
+        cette page !!!
       </div>
     </div>
   </div>
@@ -88,10 +103,35 @@
     padding: 10px;
   }
 }
+#presentation-like {
+  div {
+    margin: 100px;
+  }
+}
+.title {
+  position: relative;
+}
+.toggle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -80px;
+}
+@media only screen and (max-width: 600px) {
+  .title {
+    position: static;
+  }
+  .toggle {
+    justify-content: center;
+    position: static;
+    transform: translateY(0);
+    top: 0;
+    right: 0;
+  }
+}
 </style>
 
 <script>
-import axios from "axios";
 import CardCharacter from "~/components/character/CardCharacter.vue";
 import CardEpisode from "~/components/episode/CardEpisode.vue";
 import CardLocation from "~/components/location/CardLocation.vue";
@@ -108,6 +148,9 @@ export default {
       characters: [],
       episodes: [],
       locations: [],
+      toggleCharacter: false,
+      toggleEpisode: false,
+      toggleLocation: false,
     };
   },
   mounted() {
@@ -120,27 +163,16 @@ export default {
       let tabTempo = [];
       tabTempo = JSON.parse(localStorage.getItem("episode"));
       this.episodes = tabTempo;
-      console.log(localStorage.getItem("episode"));
     }
     if (localStorage.getItem("location")) {
       let tabTempo = [];
       tabTempo = JSON.parse(localStorage.getItem("location"));
       this.locations = tabTempo;
-      console.log(localStorage.getItem("location"));
     }
-
-    window.addEventListener("resize", this.resizeBody);
-    this.resizeBody();
   },
   methods: {
     substr: function (data) {
       return data.substring(data.lastIndexOf("/") + 1);
-    },
-    resizeBody() {
-      let header = document.querySelector("#header");
-      let html = document.documentElement;
-      document.querySelector("#presentation-like").style.minHeight =
-        html.clientHeight - header.offsetHeight + "px";
     },
   },
 };

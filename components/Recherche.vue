@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex items-center justify-center">
+    <div class="flex items-center justify-center py-6">
       <div class="flex border-2 rounded">
         <input
           type="text"
@@ -129,23 +129,27 @@
 import axios from "axios";
 
 export default {
-  props: ["parentData",'typeRecherche'],
+  props: ["parentData", "typeRecherche"],
   data() {
     return {
       name: null,
     };
   },
   methods: {
-    recherche: async function () {
+    recherche: function () {
       this.name = document.querySelector("#recherche_text").value;
-      await axios
-        .get("https://rickandmortyapi.com/api/"+this.typeRecherche+"/?name=" + this.name)
-        .then((res) => {
-          this.$emit("interface", res);
-        })
-        .catch((error) => {
-          this.$emit("interface", 404);
+      if (this.name == "") {
+        this.$router.push({ path: this.typeRecherche, query: { page: 1 } });
+      } else {
+        this.$router.push({
+          path: this.typeRecherche,
+          replace: true,
+          query: {
+            page: 1,
+            name: this.name,
+          },
         });
+      }
     },
   },
   mounted: function () {

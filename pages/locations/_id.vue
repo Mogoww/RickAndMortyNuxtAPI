@@ -11,17 +11,13 @@
         <Loading v-show="loadingStatus" />
 
         <!-- Recherche par nom -->
-        <Recherche :typeRecherche="'location'" @interface="recherche" />
+        <Recherche :typeRecherche="'locations'" />
 
         <div v-for="item in locations" :key="item.id" class="relative">
           <n-link :to="'/locations/' + substr(item.url)">
             <CardLocation :locationId="substr(item.url)" />
           </n-link>
-          <Like
-            :id="'l' + substr(item.url)"
-            :type="'location'"
-            :url="item.url"
-          />
+          <Like :id="'l' + substr(item.url)" :type="'location'" :url="item.url" />
         </div>
         <Pagination :pageNum="page" :pageMax="pageMax" />
       </div>
@@ -61,11 +57,7 @@ export default {
       this.createUrl();
 
       await axios
-        .get(
-          "https://rickandmortyapi.com/api/location/?page=" +
-            this.page +
-            this.params
-        )
+        .get("https://rickandmortyapi.com/api/location/?page=" + this.page + this.params)
         .then((res) => {
           this.locations = res.data.results;
           this.pageMax = res.data.info.pages;
@@ -81,24 +73,6 @@ export default {
     substr: function (data) {
       return data.substring(data.lastIndexOf("/") + 1);
     },
-    recherche(event) {
-      if (event != 404) {
-        if (event.config.url.substring(event.config.url.indexOf("=") + 1) == "")
-          this.$router.push({ path: "locations", query: { page: 1 } });
-        else
-          this.$router.push({
-            path: "locations",
-            query: {
-              page: 1,
-              name: event.config.url.substring(
-                event.config.url.indexOf("=") + 1
-              ),
-            },
-          });
-      } else {
-        this.error = true;
-      }
-    },
     createUrl() {
       let urlPara = this.$route.query;
       let paramTempo = "";
@@ -113,7 +87,7 @@ export default {
 };
 </script>
 
-<style  lang='scss' >
+<style lang="scss">
 .like {
   // right: 18px;
   // top: 50%;

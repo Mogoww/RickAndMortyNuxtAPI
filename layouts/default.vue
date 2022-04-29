@@ -1,12 +1,12 @@
 <template>
   <div>
-    <Header id="header" />
-    <Nuxt class="body" />
+    <Header />
+    <Nuxt />
   </div>
 </template>
-<style >
-.body {
-  background-color: #dfe2df;
+<style>
+body {
+  font: small-caps bold sans-serif;
+  background-color: #b1d5e3;
 }
 </style>
-

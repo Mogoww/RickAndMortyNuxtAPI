@@ -7,7 +7,7 @@
   >
     <div
       class="cursor-pointer flex items-center"
-      :class="oneDisplay == true ? 'text-8xl' : 'text-3xl'"
+      :class="oneDisplay == true ? 'text-6xl' : 'text-3xl'"
     >
       <ion-icon
         :id="'no-like' + id"

@@ -10,7 +10,7 @@
         <!-- Loading  -->
         <Loading v-show="loadingStatus" />
 
-        <Recherche :typeRecherche="'character'" @interface="recherche" />
+        <Recherche :typeRecherche="'characters'" />
 
         <div
           class="container-character flex flex-wrap items-center justify-center"
@@ -84,24 +84,6 @@ export default {
   methods: {
     substr: function (data) {
       return data.substring(data.lastIndexOf("/") + 1);
-    },
-    recherche(event) {
-      if (event != 404) {
-        if (event.config.url.substring(event.config.url.indexOf("=") + 1) == "")
-          this.$router.push({ path: "characters", query: { page: 1 } });
-        else
-          this.$router.push({
-            path: "characters",
-            query: {
-              page: 1,
-              name: event.config.url.substring(
-                event.config.url.indexOf("=") + 1
-              ),
-            },
-          });
-      } else {
-        this.error = true;
-      }
     },
     createUrl() {
       let urlPara = this.$route.query;
