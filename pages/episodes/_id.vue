@@ -53,12 +53,12 @@ export default {
     };
   },
   created: async function () {
-    this.createUrl();
     if (this.$route.params.id) {
       this.episodeId = this.$route.params.id;
       this.loadingStatus = false;
     } else {
       if (this.$route.query.page) this.page = this.$route.query.page;
+      this.createUrl();
       await axios
         .get(
           "https://rickandmortyapi.com/api/episode/?page=" +

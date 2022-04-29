@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card bg-white">
     <div class="image-div">
       <img
         class="image-character"

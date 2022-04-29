@@ -10,7 +10,7 @@
         />
         <button
           v-on:click="recherche"
-          class="flex items-center justify-center px-4 border-l"
+          class="flex items-center justify-center px-4 border-l bg-white"
           id="recherche_btn"
         >
           <svg
