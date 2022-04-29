@@ -27,101 +27,64 @@
       </div>
     </div>
 
-    <!-- <ul class="grid grid-cols-3 gap-x-5 m-10 max-w-md mx-auto">
+    <ul
+      class="grid grid-cols-3 gap-x-5 m-10 max-w-md mx-auto"
+      v-if="typeRecherche == 'characters'"
+    >
       <li class="relative">
         <input
           class="sr-only peer"
           type="radio"
-          value="yes"
+          value="alive"
           name="answer"
-          id="character_radio"
-          checked
+          id="answer_alive"
+          @click="status"
         />
         <label
-          class="
-            flex
-            p-5
-            bg-white
-            border border-gray-300
-            rounded-lg
-            cursor-pointer
-            focus:outline-none
-            hover:bg-gray-50
-            peer-checked:ring-green-500
-            peer-checked:ring-2
-            peer-checked:border-transparent
-          "
-          for="character_radio"
-          >Yes</label
+          class="flex p-5 bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none hover:bg-gray-50 peer-checked:ring-green-500 peer-checked:ring-2 peer-checked:border-transparent"
+          for="answer_alive"
+          >En vie</label
         >
 
-        <div class="absolute hidden w-5 h-5 peer-checked:block top-5 right-3">
-          👍
-        </div>
+        <div class="absolute hidden w-5 h-5 peer-checked:block top-5 right-3">👍</div>
       </li>
 
       <li class="relative">
         <input
           class="sr-only peer"
           type="radio"
-          value="no"
+          value="dead"
           name="answer"
-          id="answer_no"
+          id="answer_dead"
+          @click="status"
         />
         <label
-          class="
-            flex
-            p-5
-            bg-white
-            border border-gray-300
-            rounded-lg
-            cursor-pointer
-            focus:outline-none
-            hover:bg-gray-50
-            peer-checked:ring-red-500
-            peer-checked:ring-2
-            peer-checked:border-transparent
-          "
-          for="answer_no"
-          >No</label
+          class="flex p-5 bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none hover:bg-gray-50 peer-checked:ring-red-500 peer-checked:ring-2 peer-checked:border-transparent"
+          for="answer_dead"
+          >Mort</label
         >
 
-        <div class="absolute hidden w-5 h-5 peer-checked:block top-5 right-3">
-          👎
-        </div>
+        <div class="absolute hidden w-5 h-5 peer-checked:block top-5 right-3">👎</div>
       </li>
 
       <li class="relative">
         <input
           class="sr-only peer"
           type="radio"
-          value="maybe"
+          value="unknown"
           name="answer"
-          id="answer_maybe"
+          id="answer_unknown"
+          @click="status"
         />
         <label
-          class="
-            flex
-            p-5
-            bg-white
-            border border-gray-300
-            rounded-lg
-            cursor-pointer
-            focus:outline-none
-            hover:bg-gray-50
-            peer-checked:ring-yellow-500
-            peer-checked:ring-2
-            peer-checked:border-transparent
-          "
-          for="answer_maybe"
-          >Maybe</label
+          class="flex p-5 bg-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none hover:bg-gray-50 peer-checked:ring-red-500 peer-checked:ring-2 peer-checked:border-transparent"
+          for="answer_unknown"
+          >Non renseigné</label
         >
 
-        <div class="absolute hidden w-5 h-5 peer-checked:block top-5 right-3">
-          🤔
-        </div>
+        <div class="absolute hidden w-5 h-5 peer-checked:block top-5 right-3">👎</div>
       </li>
-    </ul> -->
+    </ul>
   </div>
 </template>
 
@@ -138,23 +101,39 @@ export default {
   methods: {
     recherche: function () {
       this.name = document.querySelector("#recherche_text").value;
-      if (this.name == "") {
-        this.$router.push({ path: this.typeRecherche, query: { page: 1 } });
-      } else {
-        this.$router.push({
-          path: this.typeRecherche,
-          replace: true,
-          query: {
-            page: 1,
-            name: this.name,
-          },
-        });
-      }
+      let data = {
+        page: 1,
+      };
+      if (this.name && this.$route.query.name != this.name) data.name = this.name;
+      if (this.$route.query.status) data.status = this.$route.query.status;
+
+      this.$router.push({
+        path: this.typeRecherche,
+        replace: true,
+        query: data,
+      });
+    },
+    status: function (e) {
+      let data = {
+        page: 1,
+      };
+      if (this.$route.query.name) data.name = this.$route.query.name;
+      if (!this.$route.query.status || this.$route.query.status != e.srcElement.value)
+        data.status = e.srcElement.value;
+      this.$router.push({
+        path: this.typeRecherche,
+        replace: true,
+        query: data,
+      });
     },
   },
   mounted: function () {
     if (this.$route.query.name)
       document.querySelector("#recherche_text").value = this.$route.query.name;
+    if(this.$route.query.status){
+      console.log(this.$route.query.status);
+      document.querySelector("#answer_"+this.$route.query.status).checked = true
+    }
   },
 };
 </script>
