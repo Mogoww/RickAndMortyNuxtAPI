@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[
-      type == 'character' ? 'like-chara' : 'like',
+      (type == 'episode' ||  type == 'location') &&  oneDisplay == true || type == 'character'? 'like-chara' : 'like',
       oneDisplay == true ? '' : 'absolute',
     ]"
   >

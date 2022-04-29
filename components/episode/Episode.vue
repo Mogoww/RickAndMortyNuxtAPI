@@ -6,75 +6,77 @@
     </div>
     <Loading v-else-if="loadingStatus" v-show="loadingStatus" />
     <div v-else>
-      <div v-if="episode.episode != null">
-        <div class="flex items-center justify-center">
-          <img
-            class="img-episode"
-            :src="require('~/assets/images/' + substrSaison(episode.episode) + '.jpg')"
-          />
-        </div>
-      </div>
-
-      <div class="bg-green-200 py-32 px-10">
-        <div class="flex content-center justify-center">
-          <Like
-            :id="'e' + episode.id"
-            :type="'episode'"
-            :url="episode.url"
-            :oneDisplay="true"
-          />
-        </div>
-
-        <div class="bg-white p-10 md:w-3/4 lg:w-1/2 mx-auto">
-          <div>
-            <div class="flex items-center mb-5">
-              <div class="inline-block w-20 mr-6 text-right font-bold text-gray-600">
-                Nom
-              </div>
-
-              <div
-                class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
-              >
-                {{ episode.name }}
-              </div>
+      <div class="grid grid-cols-5">
+        <div class="col-span-12 md:col-span-2 flex items-center justify-center">
+          <div class="my-2.5">
+            <img
+              class="img-episode"
+              :src="require('~/assets/images/' + substrSaison(episode.episode) + '.jpg')"
+            />
+            <div class="flex content-center justify-center">
+              <Like
+                :id="'e' + episode.id"
+                :type="'episode'"
+                :url="episode.url"
+                :oneDisplay="true"
+              />
             </div>
+          </div>
+        </div>
+        <div class="col-span-12 md:col-span-3 p-5">
+          <div class="bg-white p-8 mx-auto">
+            <div>
+              <div class="flex items-center mb-5">
+                <div class="inline-block w-20 mr-6 text-left font-bold text-gray-600">
+                  Nom
+                </div>
 
-            <div class="flex items-center mb-10">
-              <div class="inline-block w-20 mr-6 text-right font-bold text-gray-600">
-                Date
+                <div
+                  class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
+                >
+                  {{ episode.name }}
+                </div>
               </div>
 
-              <div
-                class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
-              >
-                {{
-                  new Date(episode.air_date).toLocaleString("fr-FR", {
-                    weekday: "long",
-                    day: "2-digit",
-                    year: "numeric",
-                    month: "long",
-                  })
-                }}
-                <!-- {{ episode.air_date }} -->
-              </div>
-            </div>
+              <div class="flex items-center mb-10">
+                <div class="inline-block w-20 mr-6 text-left font-bold text-gray-600">
+                  Date de sortie
+                </div>
 
-            <div class="flex items-center mb-10">
-              <div class="inline-block w-20 mr-6 text-right font-bold text-gray-600">
-                episode
+                <div
+                  class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
+                >
+                  {{
+                    new Date(episode.air_date).toLocaleString("fr-FR", {
+                      weekday: "long",
+                      day: "2-digit",
+                      year: "numeric",
+                      month: "long",
+                    })
+                  }}
+                </div>
               </div>
 
-              <div
-                class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
-              >
-                {{ episode.episode }}
+              <div class="flex items-center mb-10">
+                <div class="inline-block w-20 mr-6 text-left font-bold text-gray-600">
+                  Épisode
+                </div>
+
+                <div
+                  class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
+                >
+                  {{ episode.episode }}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div>
-        <h1>Personnages présent dans cette épisode</h1>
+
+      <div class="border-y-4 border-lime-600 py-8">
+        <h1 class="text-center text-lg font-bold">
+          Personnages présents dans cet épisode
+        </h1>
         <!-- Carousel des characters présent dans l'épisode -->
         <Carousel :data="episode.characters" :type="'characters'" class="px-8" />
       </div>
@@ -120,5 +122,4 @@ export default {
 .img-episode {
   height: 400px;
 }
-
 </style>

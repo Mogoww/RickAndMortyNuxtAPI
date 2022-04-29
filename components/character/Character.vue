@@ -6,7 +6,6 @@
     </div>
     <Loading v-else-if="loadingStatus" v-show="loadingStatus" />
     <div v-else>
-      {{ character.length }}
       <div class="grid grid-cols-5">
         <div class="col-span-12 md:col-span-2 flex items-center justify-center">
           <div>
@@ -25,21 +24,21 @@
           <div class="bg-white p-8 mx-auto">
             <div>
               <div class="flex items-center mb-5">
-                <div class="inline-block w-20 mr-6 text-right font-bold text-gray-600">
+                <div class="inline-block w-20 mr-6 text-left font-bold text-gray-600">
                   Nom
                 </div>
 
                 <div
                   class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
                 >
-                  {{ character.name }}
+                  {{ character.name == "unknown" ? "Pas renseigné" : character.name }}
                 </div>
               </div>
 
               <div class="flex items-center mb-10">
                 <div class="flex relative">
                   <div
-                    class="relative inline-block w-20 mr-6 text-right font-bold text-gray-600"
+                    class="relative inline-block w-20 mr-6 text-left font-bold text-gray-600"
                   >
                     Status
                   </div>
@@ -62,46 +61,45 @@
                 <div
                   class="flex-1 flex py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
                 >
-                  <span v-if="character.status == 'unknown'"> Manquant </span>
-                  <span v-else>
-                    {{ character.status }}
-                  </span>
+                  {{ character.status == "unknown" ? "Pas renseigné" : character.status }}
                 </div>
               </div>
 
               <div class="flex items-center mb-10">
-                <div class="inline-block w-20 mr-6 text-right font-bold text-gray-600">
-                  species
+                <div class="inline-block w-20 mr-6 text-left font-bold text-gray-600">
+                  Espèces
                 </div>
 
                 <div
                   class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
                 >
-                  {{ character.species }}
+                  {{
+                    character.species == "unknown" ? "Pas renseigné" : character.species
+                  }}
                 </div>
               </div>
 
               <div class="flex items-center mb-10">
-                <div class="inline-block w-20 mr-6 text-right font-bold text-gray-600">
-                  gender
+                <div class="inline-block w-20 mr-6 text-left font-bold text-gray-600">
+                  Genre
                 </div>
 
                 <div
                   class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
                 >
-                  {{ character.gender }}
+                  {{ character.gender == "unknown" ? "Pas renseigné" : character.gender }}
                 </div>
               </div>
 
               <div v-if="character.type" class="flex items-center mb-10">
-                <div class="inline-block w-20 mr-6 text-right font-bold text-gray-600">
-                  type
+                <div class="inline-block w-20 mr-6 text-left font-bold text-gray-600">
+                  Type
                 </div>
 
                 <div
                   class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
                 >
-                  {{ character.type }}
+                  {{ character.type == "unknown" ? "Pas renseigné" : character.type }}
                 </div>
               </div>
             </div>
@@ -110,15 +108,19 @@
       </div>
 
       <div
-        :class="
+        :class="[
           character.origin &&
           character.origin.url &&
           character.location &&
           character.location.url
             ? 'md:grid-cols-2'
-            : ''
-        "
-        class="grid grid-cols-1   border-t-4 border-lime-600"
+            : '',
+          (character.origin && character.origin.url) ||
+          (character.location && character.location.url)
+            ? 'border-t-4 border-lime-600'
+            : '',
+        ]"
+        class="grid grid-cols-1"
       >
         <div v-if="character.origin && character.origin.url">
           <h1 class="text-center text-lg font-bold">Planète d'origine</h1>
@@ -143,7 +145,7 @@
         <div v-for="(items, index) in episodes.res" v-bind:key="index">
           <div
             v-if="items != null && items.numEp.length > 0"
-            class="border-y-4 border-lime-600"
+            class="border-t-4 border-lime-600 pt-2.5"
           >
             <div class="flex justify-center">
               <div class="image-saison">

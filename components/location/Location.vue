@@ -6,101 +6,56 @@
     </div>
     <Loading v-else-if="loadingStatus" v-show="loadingStatus" />
     <div v-else>
-      <div class="bg-green-200 py-32 px-10">
-        <div class="flex content-center justify-center">
-          <Like
-            :id="'l' + location.id"
-            :type="'location'"
-            :url="location.url"
-            :oneDisplay="true"
-          />
+      <div class="grid grid-cols-5">
+        <div class="col-span-12 md:col-span-2 flex items-center justify-center">
+          <div class="flex content-center justify-center">
+            <Like
+              :id="'l' + location.id"
+              :type="'location'"
+              :url="location.url"
+              :oneDisplay="true"
+            />
+          </div>
         </div>
-        <div class="bg-white p-10 md:w-3/4 lg:w-1/2 mx-auto">
-          <div>
-            <div class="flex items-center mb-5">
-              <div
-                class="
-                  inline-block
-                  w-20
-                  mr-6
-                  text-right
-                  font-bold
-                  text-gray-600
-                "
-              >
-                Nom
+        <div class="col-span-12 md:col-span-3 p-5">
+          <div class="bg-white p-8 mx-auto">
+            <div>
+              <div class="flex items-center mb-5">
+                <div class="inline-block w-20 mr-6 text-left font-bold text-gray-600">
+                  Nom de la planète
+                </div>
+
+                <div
+                  class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
+                >
+                  {{ location.name == "unknown" ? "Pas renseigné" : location.name }}
+                </div>
               </div>
 
-              <div
-                class="
-                  flex-1
-                  py-2
-                  border-b-2 border-gray-400
-                  focus:border-green-400
-                  text-gray-600
-                  placeholder-gray-400
-                  outline-none
-                "
-              >
-                {{ location.name }}
-              </div>
-            </div>
+              <div class="flex items-center mb-10">
+                <div class="inline-block w-20 mr-6 text-left font-bold text-gray-600">
+                  Type de planète
+                </div>
 
-            <div class="flex items-center mb-10">
-              <div
-                class="
-                  inline-block
-                  w-20
-                  mr-6
-                  text-right
-                  font-bold
-                  text-gray-600
-                "
-              >
-                type
+                <div
+                  class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
+                >
+                  {{ location.type == "unknown" ? "Pas renseigné" : location.type }}
+                </div>
               </div>
 
-              <div
-                class="
-                  flex-1
-                  py-2
-                  border-b-2 border-gray-400
-                  focus:border-green-400
-                  text-gray-600
-                  placeholder-gray-400
-                  outline-none
-                "
-              >
-                {{ location.type }}
-              </div>
-            </div>
+              <div class="flex items-center mb-10">
+                <div class="inline-block w-20 mr-6 text-left font-bold text-gray-600">
+                  Dimension
+                </div>
 
-            <div class="flex items-center mb-10">
-              <div
-                class="
-                  inline-block
-                  w-20
-                  mr-6
-                  text-right
-                  font-bold
-                  text-gray-600
-                "
-              >
-                dimension
-              </div>
-
-              <div
-                class="
-                  flex-1
-                  py-2
-                  border-b-2 border-gray-400
-                  focus:border-green-400
-                  text-gray-600
-                  placeholder-gray-400
-                  outline-none
-                "
-              >
-                {{ location.dimension }}
+                <div
+                  class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 text-gray-600 placeholder-gray-400 outline-none"
+                >
+                  {{
+                    location.dimension == "unknown" ? "Pas renseigné" : location.dimension
+                  }}
+                </div>
               </div>
             </div>
           </div>
@@ -109,15 +64,13 @@
 
       <!-- Carousel des characters présent dans la location -->
 
-      <div
-        v-if="location.residents !== undefined && location.residents.length > 0"
-      >
-      <div><h1>Personnes résident sur cette planete</h1></div>
-        <Carousel
-          class="px-10"
-          :data="location.residents"
-          :type="'characters'"
-        />
+      <div v-if="location.residents !== undefined && location.residents.length > 0" class="border-y-4 border-lime-600 py-8">
+        <div>
+          <h1 class="text-center text-lg font-bold">
+            Personnes résident sur cette planète
+          </h1>
+        </div>
+        <Carousel class="px-10" :data="location.residents" :type="'characters'" />
       </div>
     </div>
   </div>
@@ -153,5 +106,4 @@ export default {
 };
 </script>
 
-<style  lang='scss' >
-</style>
+<style lang="scss"></style>
