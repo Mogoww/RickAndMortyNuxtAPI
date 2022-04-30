@@ -54,7 +54,7 @@
                   </div>
                   <div v-else>
                     <div
-                      class="absolute right-4 shadow-sm bg-gray-600 w-2 h-2 rounded-full"
+                      class="absolute right-4 shadow-sm bg-blue-500 w-2 h-2 rounded-full"
                     ></div>
                   </div>
                 </div>

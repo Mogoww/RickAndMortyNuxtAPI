@@ -84,7 +84,7 @@ export default {
       let urlPara = this.$route.query;
       let paramTempo = "";
       Object.keys(urlPara).map(function (key) {
-        if (key != "page" && (key == "name" || key == "status"))
+        if (key != "page" && (key == "name" || key == "episode"))
           paramTempo += key + "=" + urlPara[key];
         if (key != Object.keys(urlPara).pop()) paramTempo += "&";
       });

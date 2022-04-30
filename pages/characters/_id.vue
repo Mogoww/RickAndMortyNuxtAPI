@@ -12,9 +12,7 @@
 
         <Recherche :typeRecherche="'characters'" />
 
-        <div
-          class="container-character flex flex-wrap items-center justify-center"
-        >
+        <div class="container-character flex flex-wrap items-center justify-center">
           <div class="card relative" v-for="item in characters" :key="item.id">
             <n-link :to="'/characters/' + item.id">
               <CardCharacter :idCharacter="item.id" />
@@ -65,11 +63,7 @@ export default {
       if (this.$route.query.page) this.page = this.$route.query.page;
       this.createUrl();
       await axios
-        .get(
-          "https://rickandmortyapi.com/api/character/?page=" +
-            this.page +
-            this.params
-        )
+        .get("https://rickandmortyapi.com/api/character/?page=" + this.page + this.params)
         .then((res) => {
           this.characters = res.data.results;
           this.pageMax = res.data.info.pages;
@@ -89,7 +83,7 @@ export default {
       let urlPara = this.$route.query;
       let paramTempo = "";
       Object.keys(urlPara).map(function (key) {
-        if (key != "page" && (key == "name" || key == "status"))
+        if (key != "page" && (key == "name" || key == "status" || key == "gender"))
           paramTempo += key + "=" + urlPara[key];
         if (key != Object.keys(urlPara).pop()) paramTempo += "&";
       });
